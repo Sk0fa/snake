@@ -1,4 +1,6 @@
 package Models;
 
-public class IGameObject {
+public interface IGameObject {
+    public Point getPosition();
+    public void setPosition(Point position);
 }
