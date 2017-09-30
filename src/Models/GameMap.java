@@ -24,14 +24,14 @@ public class GameMap {
     }
 
     public void AddGameObject(IGameObject obj) {
-        if (!mapObjects.containsKey(obj.getPosition())) {
+        if (isFreeSpace(obj.getPosition())) {
             mapObjects.put(obj.getPosition(), obj);
             return;
         }
 
         for (int i = 0; i < width; i++) {
             for (int k = 0; k < height; k++) {
-                if (!mapObjects.containsKey(new Point(i, k))) {
+                if (isFreeSpace(new Point(i, k))) {
                     obj.setPosition(new Point(i, k));
                     mapObjects.put(obj.getPosition(), obj);
                     return;
@@ -42,5 +42,11 @@ public class GameMap {
         throw new UnsupportedOperationException("Map is full");
     }
 
+    public void AddSnake(Snake snake) {
 
+    }
+
+    private boolean isFreeSpace(Point point) {
+        return mapObjects.containsKey(point) ? false : true;
+    }
 }

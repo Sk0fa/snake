@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b8287e29-19c0-4237-aae5-06351e1e64dd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Models/Direction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Models/GameMap.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Models/IFood.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Models/IGame.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Models/Point.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Models/Snake.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/IGameObject.java" afterPath="$PROJECT_DIR$/src/Models/IGameObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/GameMap.java" afterPath="$PROJECT_DIR$/src/Models/GameMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/Snake.java" afterPath="$PROJECT_DIR$/src/Models/Snake.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,14 +38,16 @@
       <file leaf-file-name="GameMap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Models/GameMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state relative-caret-position="391">
+              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#410#411#0" expanded="true" />
                 <element signature="e#438#439#0" expanded="true" />
                 <element signature="e#468#469#0" expanded="true" />
                 <element signature="e#497#498#0" expanded="true" />
+                <element signature="e#1168#1169#0" expanded="true" />
+                <element signature="e#1235#1236#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,10 +66,18 @@
       <file leaf-file-name="Snake.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Models/Snake.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+            <state relative-caret-position="486">
+              <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#226#227#0" expanded="true" />
+                <element signature="e#253#254#0" expanded="true" />
+                <element signature="e#301#302#0" expanded="true" />
+                <element signature="e#328#329#0" expanded="true" />
+                <element signature="e#367#368#0" expanded="true" />
+                <element signature="e#399#400#0" expanded="true" />
+                <element signature="e#452#453#0" expanded="true" />
+                <element signature="e#494#495#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,10 +134,10 @@
         <option value="$PROJECT_DIR$/src/Models/Map.java" />
         <option value="$PROJECT_DIR$/src/Models/Point.java" />
         <option value="$PROJECT_DIR$/src/Models/IGameObject.java" />
-        <option value="$PROJECT_DIR$/src/Models/GameMap.java" />
         <option value="$PROJECT_DIR$/src/Models/IGame.java" />
-        <option value="$PROJECT_DIR$/src/Models/Snake.java" />
         <option value="$PROJECT_DIR$/src/Models/Direction.java" />
+        <option value="$PROJECT_DIR$/src/Models/GameMap.java" />
+        <option value="$PROJECT_DIR$/src/Models/Snake.java" />
       </list>
     </option>
   </component>
@@ -305,12 +309,12 @@
       <option name="presentableId" value="Default" />
       <updated>1506521852983</updated>
       <workItem from="1506521859748" duration="1328000" />
-      <workItem from="1506779100760" duration="6511000" />
+      <workItem from="1506779100760" duration="7590000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7839000" />
+    <option name="totallyTimeSpent" value="8918000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -371,14 +375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/IGameObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Models/Direction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -403,26 +399,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/IGameObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Models/GameMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#410#411#0" expanded="true" />
             <element signature="e#438#439#0" expanded="true" />
             <element signature="e#468#469#0" expanded="true" />
             <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#1168#1169#0" expanded="true" />
+            <element signature="e#1235#1236#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Models/Snake.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+        <state relative-caret-position="486">
+          <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#253#254#0" expanded="true" />
+            <element signature="e#301#302#0" expanded="true" />
+            <element signature="e#328#329#0" expanded="true" />
+            <element signature="e#367#368#0" expanded="true" />
+            <element signature="e#399#400#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#494#495#0" expanded="true" />
           </folding>
         </state>
       </provider>
