@@ -23,6 +23,10 @@ public class GameMap {
         return height;
     }
 
+    public Map<Point, IGameObject> getMapObjects() {
+        return mapObjects;
+    }
+
     public void AddGameObject(IGameObject obj) {
         if (isFreeSpace(obj.getPosition())) {
             mapObjects.put(obj.getPosition(), obj);
@@ -43,10 +47,29 @@ public class GameMap {
     }
 
     public void AddSnake(Snake snake) {
+        if (isFreeSpaceForSnake(snake)) {
+            mapObjects.put(snake.getHead().getPosition(), snake.getHead());
 
+            for (Map.Entry<Point, IGameObject> entry : snake.getTail().entrySet()) {
+                mapObjects.put(entry.getKey(), entry.getValue());
+            }
+        }
     }
 
-    private boolean isFreeSpace(Point point) {
+    private boolean isFreeSpaceForSnake(Snake snake) {
+        if (isFreeSpace(snake.getHead().getPosition())) {
+            for (Point point : snake.getTail().keySet()) {
+                if (!isFreeSpace(point)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isFreeSpace(Point point) {
         return mapObjects.containsKey(point) ? false : true;
     }
 }

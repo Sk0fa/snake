@@ -8,6 +8,10 @@ public class Snake {
     private Map<Point, IGameObject> tail;
     private Direction direction;
 
+    public Snake(Point headPosition, int tailSize, Direction direction) {
+
+    }
+
     public IGameObject getHead() {
         return head;
     }
@@ -24,7 +28,7 @@ public class Snake {
         this.direction = direction;
     }
 
-    public void Move(Direction direction) {
-        
+    public void Move() {
+
     }
 }
