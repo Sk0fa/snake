@@ -3,6 +3,11 @@ package Models;
 public class SnakeTail implements IGameObject {
     private Point position;
 
+    public SnakeTail(Point position) {
+        this.position.X = position.X;
+        this.position.Y = position.Y;
+    }
+
     @Override
     public Point getPosition() {
         return position;

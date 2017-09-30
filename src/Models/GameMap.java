@@ -50,7 +50,7 @@ public class GameMap {
         if (isFreeSpaceForSnake(snake)) {
             mapObjects.put(snake.getHead().getPosition(), snake.getHead());
 
-            for (Map.Entry<Point, IGameObject> entry : snake.getTail().entrySet()) {
+            for (Map.Entry<Point, SnakeTail> entry : snake.getTail().entrySet()) {
                 mapObjects.put(entry.getKey(), entry.getValue());
             }
         }
@@ -71,5 +71,9 @@ public class GameMap {
 
     public boolean isFreeSpace(Point point) {
         return mapObjects.containsKey(point) ? false : true;
+    }
+
+    public IGameObject GetMapObject(Point position) {
+        return getMapObjects().get(position);
     }
 }
