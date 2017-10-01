@@ -41,6 +41,26 @@ public class Snake {
     }
 
     public void Move() {
-        //if (direction == Direction.Up ||)
+        int dy = 0;
+        int dx = 0;
+        Point lastPos = new Point(head.getPosition().X, head.getPosition().Y);
+        Point lastPosTail = new Point(0, 0);
+
+        if (direction == Direction.Up || direction == Direction.Down) {
+            dy = intDirections.get(direction);
+        }
+        else {
+            dx = intDirections.get(direction);
+        }
+
+        head.setPosition(new Point(head.getPosition().X + dx,
+                head.getPosition().Y + dy));
+        for (Map.Entry<Point, SnakeTail> entry : tail.entrySet()) {
+            lastPosTail.X = entry.getKey().X;
+            lastPosTail.Y = entry.getKey().Y;
+            entry.getValue().setPosition(new Point(lastPos.X, lastPos.Y));
+            lastPos.X = lastPosTail.X;
+            lastPos.Y = lastPosTail.Y;
+        }
     }
 }
