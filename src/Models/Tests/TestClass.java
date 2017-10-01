@@ -1,4 +1,4 @@
-/*import Models.Direction;
+import Models.Direction;
 import Models.Point;
 import Models.Snake;
 import org.junit.Test;
@@ -14,4 +14,4 @@ public class TestClass {
         assertEquals(snake.getHead().getPosition(), new Point(0, 1));
     }
 
-}*/
+}
