@@ -1,10 +1,10 @@
 package Models;
 
-public class Game implements IGame {
+public class SimpleGame implements IGame {
 
     GameMap map;
 
-    public Game(GameMap map) {
+    public SimpleGame(GameMap map) {
         this.map = map;
     }
 
@@ -15,6 +15,6 @@ public class Game implements IGame {
 
     @Override
     public void MakeTurn() {
-
+        
     }
 }
