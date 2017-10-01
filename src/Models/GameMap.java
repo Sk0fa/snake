@@ -33,7 +33,7 @@ public class GameMap {
             return;
         }
 
-        for (int i = 0; i < width; i++) {
+        /*for (int i = 0; i < width; i++) {
             for (int k = 0; k < height; k++) {
                 if (isFreeSpace(new Point(i, k))) {
                     obj.setPosition(new Point(i, k));
@@ -41,9 +41,9 @@ public class GameMap {
                     return;
                 }
             }
-        }
+        }*/
 
-        throw new UnsupportedOperationException("Map is full");
+        throw new UnsupportedOperationException("Space is busy");
     }
 
     public void AddSnake(Snake snake) {

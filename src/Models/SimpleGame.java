@@ -15,6 +15,14 @@ public class SimpleGame implements IGame {
 
     @Override
     public void MakeTurn() {
-        
+        for (int i = 0; i < map.getWidth(); i++) {
+            for (int k = 0; k < map.getHeight(); k++) {
+                if (map.getMapObjects().containsKey(new Point(i, k))) {
+                    if (map.getMapObjects().get(new Point(i, k)) instanceof SnakeHead) {
+                        ((SnakeHead) map.getMapObjects().get(new Point(i, k))).getSnake().Move();
+                    }
+                }
+            }
+        }
     }
 }

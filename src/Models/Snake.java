@@ -11,13 +11,15 @@ public class Snake {
 
 
     public Snake(Point headPosition, int tailSize, Direction direction) {
-        head = new SnakeHead(headPosition);
+        tail = new HashMap<Point, SnakeTail>();
+        head = new SnakeHead(headPosition, this);
         for (int i = 0; i < tailSize; i ++) {
             Point newPosition = new Point(headPosition.X + i + 1, headPosition.Y);
             tail.put(newPosition, new SnakeTail(newPosition));
         }
 
         this.direction = direction;
+        intDirections = new HashMap<Direction, Integer>();
         intDirections.put(Direction.Down, -1);
         intDirections.put(Direction.Up, 1);
         intDirections.put(Direction.Left, -1);

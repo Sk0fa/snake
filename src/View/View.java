@@ -1,9 +1,6 @@
 package View;
 
-import Models.GameMap;
-import Models.IGame;
-import Models.IGameObject;
-import Models.Point;
+import Models.*;
 
 import java.util.Map;
 
@@ -21,16 +18,23 @@ public class View implements IView{
         for(Integer x = 0; x < map.getWidth(); x++) {
             for (Integer y = 0; y < map.getHeight(); y++) {
                 Point point = new Point(x, y);
-                IGameObject gameObject;
+                IGameObject gameObject = map.GetMapObject(point);
                 if(map.isFreeSpace(point))
-                    System.out.print(' ');
-                else if(objectView.containsKey(gameObject = map.GetMapObject(point)))
-                    System.out.print(objectView.get(gameObject));
+                    System.out.print("| |");
+                /*else if(objectView.containsKey(gameObject = map.GetMapObject(point)))
+                    System.out.print(objectView.get(gameObject));*/
+                else if (gameObject instanceof SnakeHead) {
+                    System.out.print("|★|");
+                }
+                else if (gameObject instanceof SnakeTail) {
+                    System.out.print("|☯|");
+                }
                 else
                     throw new Error("Object " + gameObject.toString() + " was not described");
 
             }
             System.out.println();
         }
+        System.out.println("-------------------");
     }
 }
