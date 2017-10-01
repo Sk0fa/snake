@@ -25,4 +25,14 @@ public class SnakeHead implements IGameObject {
         this.position.X = position.X;
         this.position.Y = position.Y;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+
+        SnakeHead s = (SnakeHead) o;
+
+        return s.getPosition().X == position.X && s.getPosition().Y == position.Y
+                && snake == s.getSnake();
+    }
 }

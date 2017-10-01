@@ -58,8 +58,8 @@ public class Snake {
             dx = intDirections.get(direction);
         }
 
-        head.setPosition(new Point(head.getPosition().X + dx,
-                head.getPosition().Y + dy));
+        setHeadPosition(dx, dy);
+
         for (SnakeTail partOfTail : this.tail) {
             lastPosTail.X = partOfTail.getPosition().X;
             lastPosTail.Y = partOfTail.getPosition().Y;
@@ -70,5 +70,21 @@ public class Snake {
     }
 
     private void setHeadPosition(int dx, int dy) {
+        if (head.getPosition().Y + dy > map.getWidth() - 1) {
+            head.setPosition(new Point(head.getPosition().X, 0));
+        }
+        else if (head.getPosition().Y + dy < 0) {
+            head.setPosition(new Point(head.getPosition().X, map.getWidth() - 1));
+        }
+        else if (head.getPosition().X + dx > map.getHeight() - 1) {
+            head.setPosition(new Point(0, head.getPosition().Y));
+        }
+        else if (head.getPosition().X + dx < 0) {
+            head.setPosition(new Point(map.getHeight() - 1, head.getPosition().Y));
+        }
+        else {
+            head.setPosition(new Point(head.getPosition().X + dx,
+                    head.getPosition().Y + dy));
+        }
     }
 }
