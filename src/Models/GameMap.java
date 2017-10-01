@@ -1,5 +1,6 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Map;
 import java.util.HashMap;
@@ -7,12 +8,12 @@ import java.util.HashMap;
 public class GameMap {
     private int width;
     private int height;
-    private Map<Point, IGameObject> mapObjects;
+    private ArrayList<IGameObject> mapObjects;
 
     public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.mapObjects = new HashMap<Point, IGameObject>();
+        this.mapObjects = new ArrayList<IGameObject>();
     }
 
     public int getWidth() {
@@ -23,13 +24,13 @@ public class GameMap {
         return height;
     }
 
-    public Map<Point, IGameObject> getMapObjects() {
+    public ArrayList<IGameObject> getMapObjects() {
         return mapObjects;
     }
 
     public void AddGameObject(IGameObject obj) {
         if (isFreeSpace(obj.getPosition())) {
-            mapObjects.put(obj.getPosition(), obj);
+            mapObjects.add(obj);
             return;
         }
 
@@ -48,18 +49,18 @@ public class GameMap {
 
     public void AddSnake(Snake snake) {
         if (isFreeSpaceForSnake(snake)) {
-            mapObjects.put(snake.getHead().getPosition(), snake.getHead());
+            mapObjects.add(snake.getHead());
 
-            for (Map.Entry<Point, SnakeTail> entry : snake.getTail().entrySet()) {
-                mapObjects.put(entry.getKey(), entry.getValue());
+            for (SnakeTail partOfTail : snake.getTail()) {
+                mapObjects.add(partOfTail);
             }
         }
     }
 
     private boolean isFreeSpaceForSnake(Snake snake) {
         if (isFreeSpace(snake.getHead().getPosition())) {
-            for (Point point : snake.getTail().keySet()) {
-                if (!isFreeSpace(point)) {
+            for (SnakeTail partOfTail : snake.getTail()) {
+                if (!isFreeSpace(partOfTail.getPosition())) {
                     return false;
                 }
             }
@@ -70,10 +71,20 @@ public class GameMap {
     }
 
     public boolean isFreeSpace(Point point) {
-        return mapObjects.containsKey(point) ? false : true;
+        for (IGameObject obj : mapObjects) {
+            if (obj.getPosition().equals(point)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public IGameObject GetMapObject(Point position) {
-        return getMapObjects().get(position);
+        for (IGameObject obj : mapObjects) {
+            if (obj.getPosition().equals(position)) {
+                return obj;
+            }
+        }
+        return null;
     }
 }

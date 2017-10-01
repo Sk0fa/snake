@@ -1,21 +1,23 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
 public class Snake {
     private SnakeHead head;
-    private Map<Point, SnakeTail> tail;
+    private ArrayList<SnakeTail> tail;
     private Direction direction;
     private Map<Direction, Integer> intDirections;
+    private GameMap map;
 
 
-    public Snake(Point headPosition, int tailSize, Direction direction) {
-        tail = new HashMap<Point, SnakeTail>();
+    public Snake(Point headPosition, int tailSize, Direction direction, GameMap map) {
+        tail = new ArrayList<SnakeTail>();
         head = new SnakeHead(headPosition, this);
         for (int i = 0; i < tailSize; i ++) {
             Point newPosition = new Point(headPosition.X + i + 1, headPosition.Y);
-            tail.put(newPosition, new SnakeTail(newPosition));
+            tail.add(new SnakeTail(newPosition));
         }
 
         this.direction = direction;
@@ -24,13 +26,14 @@ public class Snake {
         intDirections.put(Direction.Up, 1);
         intDirections.put(Direction.Left, -1);
         intDirections.put(Direction.Right, 1);
+        this.map = map;
     }
 
     public IGameObject getHead() {
         return head;
     }
 
-    public Map<Point, SnakeTail> getTail() {
+    public ArrayList<SnakeTail> getTail() {
         return tail;
     }
 
@@ -57,12 +60,15 @@ public class Snake {
 
         head.setPosition(new Point(head.getPosition().X + dx,
                 head.getPosition().Y + dy));
-        for (Map.Entry<Point, SnakeTail> entry : tail.entrySet()) {
-            lastPosTail.X = entry.getKey().X;
-            lastPosTail.Y = entry.getKey().Y;
-            entry.getValue().setPosition(new Point(lastPos.X, lastPos.Y));
+        for (SnakeTail partOfTail : this.tail) {
+            lastPosTail.X = partOfTail.getPosition().X;
+            lastPosTail.Y = partOfTail.getPosition().Y;
+            partOfTail.setPosition(new Point(lastPos.X, lastPos.Y));
             lastPos.X = lastPosTail.X;
             lastPos.Y = lastPosTail.Y;
         }
+    }
+
+    private void setHeadPosition(int dx, int dy) {
     }
 }
