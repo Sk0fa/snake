@@ -11,19 +11,19 @@ public class Point {
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Point p = (Point) o;
+        Point point = (Point) o;
 
-        return p.X == X && p.Y == Y;
+        if (X != point.X) return false;
+        return Y == point.Y;
     }
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = result * 37 + X;
-        result = result * 37 + Y;
-
+        int result = X;
+        result = 31 * result + Y;
         return result;
     }
 
