@@ -18,10 +18,10 @@ public class SimpleGame implements IGame {
     }
 
     @Override
-    public void MakeTurn() {
+    public void makeTurn() {
         for (IGameObject obj : map.getMapObjects()) {
             if (obj instanceof SnakeHead) {
-                ((SnakeHead) obj).getSnake().Move();
+                ((SnakeHead) obj).getSnake().move();
             }
         }
     }

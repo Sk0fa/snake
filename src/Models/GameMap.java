@@ -25,7 +25,7 @@ public class GameMap {
         return mapObjects;
     }
 
-    public void AddGameObject(IGameObject obj) {
+    public void addGameObject(IGameObject obj) {
         if (isFreeSpace(obj.getPosition()))
             mapObjects.add(obj);
         else
@@ -33,7 +33,7 @@ public class GameMap {
                     " was occupied");
     }
 
-    public void AddSnake(Snake snake) {
+    public void addSnake(Snake snake) {
         if (isFreeSpaceForSnake(snake)) {
             mapObjects.add(snake.getHead());
             mapObjects.addAll(snake.getTail());
@@ -64,7 +64,7 @@ public class GameMap {
         return true;
     }
 
-    public IGameObject GetMapObject(Point position) {
+    public IGameObject getMapObject(Point position) {
         for (IGameObject obj : mapObjects) {
             if (obj.getPosition().equals(position)) {
                 return obj;

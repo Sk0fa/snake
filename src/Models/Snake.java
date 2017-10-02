@@ -37,7 +37,7 @@ public class Snake {
         this.direction = direction;
     }
     
-    public void Move() {
+    public void move() {
         int dy = 0;
         int dx = 0;
         Point lastPos = new Point(head.getPosition().X, head.getPosition().Y);

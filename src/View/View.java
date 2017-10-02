@@ -18,10 +18,10 @@ public class View implements IView{
         for(Integer x = 0; x < map.getWidth(); x++) {
             for (Integer y = 0; y < map.getHeight(); y++) {
                 Point point = new Point(x, y);
-                IGameObject gameObject = map.GetMapObject(point);
+                IGameObject gameObject = map.getMapObject(point);
                 if(map.isFreeSpace(point))
                     System.out.print("| |");
-                /*else if(objectView.containsKey(gameObject = map.GetMapObject(point)))
+                /*else if(objectView.containsKey(gameObject = map.getMapObject(point)))
                     System.out.print(objectView.get(gameObject));*/
                 else if (gameObject instanceof SnakeHead) {
                     System.out.print("|★|");

@@ -13,7 +13,7 @@ public class TestClass {
     public void testSnakeMove() {
         GameMap gameMap = new GameMap(3, 3);
         Snake snake = new Snake(new Point(0, 0), 1, Direction.Up, gameMap);
-        snake.Move();
+        snake.move();
         assertEquals(new Point(2, 0), snake.getHead().getPosition());
         assertEquals(new Point(0, 0), snake.getTail().get(0).getPosition());
     }
@@ -22,7 +22,7 @@ public class TestClass {
     public void testCycleMove() {
         GameMap gameMap = new GameMap(3,3);
         Snake snake = new Snake(new Point(0, 0), 1, Direction.Right, gameMap);
-        snake.Move();
+        snake.move();
         assertEquals(new Point(2, 0), snake.getHead().getPosition());
         assertEquals(new Point(0, 0), snake.getTail().get(0).getPosition());
     }
