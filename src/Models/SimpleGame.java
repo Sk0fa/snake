@@ -19,7 +19,13 @@ public class SimpleGame implements IGame {
 
     @Override
     public void MakeTurn() {
-        checkHeads.clear();
+        for (IGameObject obj : map.getMapObjects()) {
+            if (obj instanceof SnakeHead) {
+                ((SnakeHead) obj).getSnake().Move();
+            }
+        }
+
+        /*checkHeads.clear();
         for (int i = 0; i < map.getWidth(); i++) {
             for (int k = 0; k < map.getHeight(); k++) {
                 if (!map.isFreeSpace(new Point(i, k))) {
@@ -30,7 +36,7 @@ public class SimpleGame implements IGame {
                     }
                 }
             }
-        }
+        }*/
     }
 
     private boolean headWasCheck(SnakeHead head) {

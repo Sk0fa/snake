@@ -8,7 +8,6 @@ public class Snake {
     private SnakeHead head;
     private ArrayList<SnakeTail> tail;
     private Direction direction;
-    private Map<Direction, Integer> intDirections;
     private GameMap map;
 
 
@@ -21,11 +20,6 @@ public class Snake {
         }
 
         this.direction = direction;
-        intDirections = new HashMap<Direction, Integer>();
-        intDirections.put(Direction.Down, -1);
-        intDirections.put(Direction.Up, 1);
-        intDirections.put(Direction.Left, -1);
-        intDirections.put(Direction.Right, 1);
         this.map = map;
     }
 
@@ -52,10 +46,10 @@ public class Snake {
         Point lastPosTail = new Point(0, 0);
 
         if (direction == Direction.Up || direction == Direction.Down) {
-            dy = intDirections.get(direction);
+            dx = direction == Direction.Up ? -1 : 1;
         }
         else {
-            dx = intDirections.get(direction);
+            dy = direction == Direction.Left ? -1 : 1;
         }
 
         setHeadPosition(dx, dy);
