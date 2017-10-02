@@ -1,8 +1,6 @@
 package Models;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 public class Snake {
     private SnakeHead head;
@@ -38,7 +36,7 @@ public class Snake {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
-
+    
     public void Move() {
         int dy = 0;
         int dx = 0;

@@ -24,19 +24,6 @@ public class SimpleGame implements IGame {
                 ((SnakeHead) obj).getSnake().Move();
             }
         }
-
-        /*checkHeads.clear();
-        for (int i = 0; i < map.getWidth(); i++) {
-            for (int k = 0; k < map.getHeight(); k++) {
-                if (!map.isFreeSpace(new Point(i, k))) {
-                    IGameObject obj = map.GetMapObject(new Point(i, k));
-                    if (obj instanceof SnakeHead && !headWasCheck((SnakeHead) obj)) {
-                        ((SnakeHead) obj).getSnake().Move();
-                        checkHeads.add((SnakeHead) obj);
-                    }
-                }
-            }
-        }*/
     }
 
     private boolean headWasCheck(SnakeHead head) {
