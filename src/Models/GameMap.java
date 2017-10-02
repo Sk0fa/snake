@@ -1,9 +1,6 @@
 package Models;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Map;
-import java.util.HashMap;
 
 public class GameMap {
     private int width;
@@ -13,7 +10,7 @@ public class GameMap {
     public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.mapObjects = new ArrayList<IGameObject>();
+        this.mapObjects = new ArrayList<>();
     }
 
     public int getWidth() {
@@ -29,32 +26,20 @@ public class GameMap {
     }
 
     public void AddGameObject(IGameObject obj) {
-        if (isFreeSpace(obj.getPosition())) {
+        if (isFreeSpace(obj.getPosition()))
             mapObjects.add(obj);
-            return;
-        }
-
-        /*for (int i = 0; i < width; i++) {
-            for (int k = 0; k < height; k++) {
-                if (isFreeSpace(new Point(i, k))) {
-                    obj.setPosition(new Point(i, k));
-                    mapObjects.put(obj.getPosition(), obj);
-                    return;
-                }
-            }
-        }*/
-
-        throw new UnsupportedOperationException("Space is busy");
+        else
+            throw new UnsupportedOperationException("Point " + obj.getPosition() +
+                    " was occupied");
     }
 
     public void AddSnake(Snake snake) {
         if (isFreeSpaceForSnake(snake)) {
             mapObjects.add(snake.getHead());
-
-            for (SnakeTail partOfTail : snake.getTail()) {
-                mapObjects.add(partOfTail);
-            }
+            mapObjects.addAll(snake.getTail());
         }
+        else
+            throw new UnsupportedOperationException("Not enough place for snake");
     }
 
     private boolean isFreeSpaceForSnake(Snake snake) {

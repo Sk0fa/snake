@@ -8,7 +8,7 @@ public class Snake {
     private SnakeHead head;
     private ArrayList<SnakeTail> tail;
     private Direction direction;
-    private Map<Direction, Integer> intDirections;
+    private Map<Direction, Integer> intDirections; //TODO: static? Map<Direction, Point>
     private GameMap map;
 
 
@@ -45,6 +45,7 @@ public class Snake {
         this.direction = direction;
     }
 
+    //TODO: Влад, ну ты понял
     public void Move() {
         int dy = 0;
         int dx = 0;

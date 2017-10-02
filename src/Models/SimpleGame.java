@@ -17,6 +17,7 @@ public class SimpleGame implements IGame {
         return map;
     }
 
+    //TODO: Влад переделай плиз
     @Override
     public void MakeTurn() {
         checkHeads.clear();
