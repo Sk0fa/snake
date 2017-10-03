@@ -7,7 +7,7 @@ import Models.Snake;
 import org.junit.*;
 import static junit.framework.Assert.*;
 
-public class TestClass {
+public class SnakeTests {
 
     @Test
     public void testSnakeMove() {

@@ -42,6 +42,8 @@ public class GameMap {
             throw new UnsupportedOperationException("Not enough place for snake");
     }
 
+    //TODO: USE STREAMS
+
     private boolean isFreeSpaceForSnake(Snake snake) {
         if (isFreeSpace(snake.getHead().getPosition())) {
             for (SnakeTail partOfTail : snake.getTail()) {

@@ -1,31 +1,40 @@
 package Models;
 
-import java.util.ArrayList;
+import com.sun.jmx.remote.internal.ArrayQueue;
+
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.LinkedTransferQueue;
 
 public class Snake {
     private SnakeHead head;
-    private ArrayList<SnakeTail> tail;
+    private LinkedList<SnakeTail> tail;
     private Direction direction;
     private GameMap map;
+    private Map<Direction, Point> DirectionChange;
 
-
-    public Snake(Point headPosition, int tailSize, Direction direction, GameMap map) {
-        tail = new ArrayList<SnakeTail>();
+    public Snake(Point headPosition, int tailSize, Direction direction) {
+        tail = new LinkedList<>();
         head = new SnakeHead(headPosition, this);
         for (int i = 0; i < tailSize; i ++) {
             Point newPosition = new Point(headPosition.X + i + 1, headPosition.Y);
-            tail.add(new SnakeTail(newPosition));
+            tail.addLast(new SnakeTail(newPosition));
         }
 
         this.direction = direction;
         this.map = map;
+
+        DirectionChange.put(Direction.Up, new Point(0, 1));
+        DirectionChange.put(Direction.Down, new Point(0, -1));
+        DirectionChange.put(Direction.Right, new Point(1, 0));
+        DirectionChange.put(Direction.Left, new Point(-1, 0));
     }
 
     public IGameObject getHead() {
         return head;
     }
 
-    public ArrayList<SnakeTail> getTail() {
+    public Queue<SnakeTail> getTail() {
         return tail;
     }
 
@@ -37,46 +46,15 @@ public class Snake {
         this.direction = direction;
     }
     
-    public void move() {
-        int dy = 0;
-        int dx = 0;
-        Point lastPos = new Point(head.getPosition().X, head.getPosition().Y);
-        Point lastPosTail = new Point(0, 0);
-
-        if (direction == Direction.Up || direction == Direction.Down) {
-            dx = direction == Direction.Up ? -1 : 1;
-        }
-        else {
-            dy = direction == Direction.Left ? -1 : 1;
-        }
-
-        setHeadPosition(dx, dy);
-
-        for (SnakeTail partOfTail : this.tail) {
-            lastPosTail.X = partOfTail.getPosition().X;
-            lastPosTail.Y = partOfTail.getPosition().Y;
-            partOfTail.setPosition(new Point(lastPos.X, lastPos.Y));
-            lastPos.X = lastPosTail.X;
-            lastPos.Y = lastPosTail.Y;
-        }
+    public void move(GameMap gameMap) {
+        Point lastHeadPosition = head.getPosition();
+        moveHead(DirectionChange.get(direction), gameMap);
+        SnakeTail lastTail = tail.getFirst();
+        tail.addLast(lastTail);
     }
 
-    private void setHeadPosition(int dx, int dy) {
-        if (head.getPosition().Y + dy > map.getWidth() - 1) {
-            head.setPosition(new Point(head.getPosition().X, 0));
-        }
-        else if (head.getPosition().Y + dy < 0) {
-            head.setPosition(new Point(head.getPosition().X, map.getWidth() - 1));
-        }
-        else if (head.getPosition().X + dx > map.getHeight() - 1) {
-            head.setPosition(new Point(0, head.getPosition().Y));
-        }
-        else if (head.getPosition().X + dx < 0) {
-            head.setPosition(new Point(map.getHeight() - 1, head.getPosition().Y));
-        }
-        else {
-            head.setPosition(new Point(head.getPosition().X + dx,
-                    head.getPosition().Y + dy));
-        }
+    private void moveHead(Point delta, GameMap gameMap) {
+        head.setPosition(new Point((head.getPosition().X + delta.X) % gameMap.getWidth(),
+                (head.getPosition().Y + delta.Y) % gameMap.getHeight()));
     }
 }
