@@ -9,11 +9,8 @@ public class Main {
         GameMap map = new GameMap(7, 7);
         Snake snake = new Snake(new Point(3, 3), 2, Direction.Right, map);
         map.addSnake(snake);
-        Map<IGameObject, Character> objectsView = new HashMap<IGameObject, Character>();
-        objectsView.put(new SnakeHead(new Point(0, 0), snake), '★');
-        objectsView.put(new SnakeTail(new Point(1, 1)), '☯');
         SimpleGame game = new SimpleGame(map);
-        View view = new View(objectsView);
+        View view = new View();
 
         while (true) {
             view.redraw(game);
