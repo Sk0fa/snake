@@ -13,22 +13,25 @@ public class Snake {
     private Map<Direction, Point> DirectionChange;
 
     public Snake(Point headPosition, int tailSize, Direction direction,
-                 GameMap map) {
-        tail = new LinkedList<>();
-        head = new SnakeHead(headPosition, this);
-        for (int i = 0; i < tailSize; i ++) {
-            Point newPosition = new Point(headPosition.X + i + 1, headPosition.Y);
-            tail.addLast(new SnakeTail(newPosition));
-        }
-
-        this.direction = direction;
-        this.map = map;
+                 Direction tailDirection, GameMap map) {
 
         DirectionChange = new HashMap<>();
         DirectionChange.put(Direction.Up, new Point(-1, 0));
         DirectionChange.put(Direction.Down, new Point(1, 0));
         DirectionChange.put(Direction.Right, new Point(0, 1));
         DirectionChange.put(Direction.Left, new Point(0, -1));
+
+        tail = new LinkedList<>();
+        head = new SnakeHead(headPosition, this);
+        Point tailChange = DirectionChange.get(tailDirection);
+        for (int i = 1; i < tailSize + 1; i++) {
+            Point newPosition = new Point(headPosition.X + i*tailChange.X,
+                    headPosition.Y + i*tailChange.Y);
+            tail.addLast(new SnakeTail(newPosition));
+        }
+
+        this.direction = direction;
+        this.map = map;
     }
 
     public IGameObject getHead() {
