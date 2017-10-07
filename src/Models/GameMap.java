@@ -74,4 +74,15 @@ public class GameMap {
         }
         return null;
     }
+
+    public ArrayList<IGameObject> getAllMapObjects(Point position) {
+        ArrayList<IGameObject> list = new ArrayList<>();
+        for (IGameObject obj : mapObjects) {
+            if (obj.getPosition().equals(position)) {
+                list.add(obj);
+            }
+        }
+
+        return list;
+    }
 }

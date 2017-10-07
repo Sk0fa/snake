@@ -11,6 +11,7 @@ public class Snake {
     private Direction direction;
     private GameMap map;
     private Map<Direction, Point> DirectionChange;
+    private Point lastTailPosition;
 
     public Snake(Point headPosition, int tailSize, Direction direction,
                  Direction tailDirection, GameMap map) {
@@ -29,6 +30,9 @@ public class Snake {
                     headPosition.Y + i*tailChange.Y);
             tail.addLast(new SnakeTail(newPosition));
         }
+
+        lastTailPosition = new Point(tail.getLast().getPosition().X + tailChange.X,
+                tail.getLast().getPosition().Y + tailChange.Y);
 
         this.direction = direction;
         this.map = map;
@@ -60,6 +64,8 @@ public class Snake {
         Point lastHeadPosition = new Point(head.getPosition().X, head.getPosition().Y);
         moveHead(DirectionChange.get(direction));
         SnakeTail lastTail = tail.pollLast();
+        lastTailPosition.X = lastTail.getPosition().X;
+        lastTailPosition.Y = lastTail.getPosition().Y;
         lastTail.setPosition(new Point(lastHeadPosition.X, lastHeadPosition.Y));
         tail.addFirst(lastTail);
     }
@@ -68,5 +74,11 @@ public class Snake {
         head.setPosition(new Point(
                 (map.getWidth() + head.getPosition().X + delta.X) % map.getWidth(),
                 (map.getHeight() + head.getPosition().Y + delta.Y) % map.getHeight()));
+    }
+
+    public void addTail() {
+        SnakeTail new_tail = new SnakeTail(new Point(lastTailPosition.X, lastTailPosition.Y));
+        tail.addLast(new_tail);
+        map.addGameObject(new_tail);
     }
 }

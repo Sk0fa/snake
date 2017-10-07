@@ -2,13 +2,10 @@ package Models;
 
 public class SnakeTail implements IGameObject {
     private Point position;
-    private Character character;
+    static private Character character = '☯';
 
     public SnakeTail(Point position) {
-        this.position = new Point(0, 0);
-        this.position.X = position.X;
-        this.position.Y = position.Y;
-        this.character = '☯';
+        this.position = new Point(position.X, position.Y);
     }
 
     @Override
@@ -25,5 +22,10 @@ public class SnakeTail implements IGameObject {
     @Override
     public Character getCharacter() {
         return character;
+    }
+
+    @Override
+    public void checkOnCollision(IGame game) {
+
     }
 }
