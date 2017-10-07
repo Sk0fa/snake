@@ -16,8 +16,8 @@ public class Snake {
                  Direction tailDirection, GameMap map) {
 
         DirectionChange = new HashMap<>();
-        DirectionChange.put(Direction.Up, new Point(0, 1));
-        DirectionChange.put(Direction.Down, new Point(0, -1));
+        DirectionChange.put(Direction.Up, new Point(0, -1));
+        DirectionChange.put(Direction.Down, new Point(0, 1));
         DirectionChange.put(Direction.Right, new Point(1, 0));
         DirectionChange.put(Direction.Left, new Point(-1, 0));
 
