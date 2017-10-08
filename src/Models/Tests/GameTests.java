@@ -64,8 +64,10 @@ public class GameTests {
                 Direction.Right, gameMap);
         Snake secondSnake = new Snake(new Point(0, 1), 3, Direction.Down,
                 Direction.Right, gameMap);
-        Method method = firstSnake.getClass().getMethod("isFreeSpaceForSnake", new Class[0]);
-        assertTrue((Boolean) method.invoke(firstSnake, new Object[0]));
-        assertFalse((Boolean) method.invoke(secondSnake, new Object[0]));
+        Method method = gameMap.getClass().getDeclaredMethod("isFreeSpaceForSnake",
+                new Class[] {Snake.class});
+        method.setAccessible(true);
+        assertTrue((Boolean) method.invoke(gameMap, firstSnake));
+        assertFalse((Boolean) method.invoke(gameMap, secondSnake));
     }
 }
