@@ -76,6 +76,8 @@ public class Snake {
                 (map.getHeight() + head.getPosition().Y + delta.Y) % map.getHeight()));
     }
 
+
+
     public void addTail() {
         SnakeTail new_tail = new SnakeTail(new Point(lastTailPosition.X, lastTailPosition.Y));
         tail.addLast(new_tail);

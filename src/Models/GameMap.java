@@ -42,39 +42,25 @@ public class GameMap {
             throw new UnsupportedOperationException("Not enough place for snake");
     }
 
-    //TODO: USE STREAMS
-
     private boolean isFreeSpaceForSnake(Snake snake) {
-        if (isFreeSpace(snake.getHead().getPosition())) {
-            for (SnakeTail partOfTail : snake.getTail()) {
-                if (!isFreeSpace(partOfTail.getPosition())) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        return false;
+        return isFreeSpace(snake.getHead().getPosition()) && snake.getTail()
+                .stream()
+                .allMatch(obj -> isFreeSpace(obj.getPosition()));
     }
 
     public boolean isFreeSpace(Point point) {
-        for (IGameObject obj : mapObjects) {
-            if (obj.getPosition().equals(point)) {
-                return false;
-            }
-        }
-        return true;
+        return mapObjects.stream()
+                .noneMatch(obj -> obj.getPosition().equals(point));
     }
 
     public IGameObject getMapObject(Point position) {
-        for (IGameObject obj : mapObjects) {
-            if (obj.getPosition().equals(position)) {
-                return obj;
-            }
-        }
-        return null;
+        return mapObjects.stream()
+                .filter(obj -> obj.getPosition().equals(position))
+                .findFirst()
+                .get();
     }
 
+    //TODO: maybe delete?
     public ArrayList<IGameObject> getAllMapObjects(Point position) {
         ArrayList<IGameObject> list = new ArrayList<>();
         for (IGameObject obj : mapObjects) {

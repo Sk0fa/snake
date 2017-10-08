@@ -6,9 +6,9 @@ import static junit.framework.Assert.assertTrue;
 
 public class CollisionTests {
 
-    GameMap gameMap;
-    Snake snake;
-    SimpleGame game;
+    private GameMap gameMap;
+    private Snake snake;
+    private SimpleGame game;
 
     @Before
     public void setUp() {
