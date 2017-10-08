@@ -1,9 +1,6 @@
 package Models;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class Snake {
     private SnakeHead head;
@@ -11,7 +8,6 @@ public class Snake {
     private Direction direction;
     private GameMap map;
     private Map<Direction, Point> DirectionChange;
-    private Point lastTailPosition;
 
     public Snake(Point headPosition, int tailSize, Direction direction,
                  Direction tailDirection, GameMap map) {
@@ -28,11 +24,8 @@ public class Snake {
         for (int i = 1; i < tailSize + 1; i++) {
             Point newPosition = new Point(headPosition.X + i*tailChange.X,
                     headPosition.Y + i*tailChange.Y);
-            tail.addLast(new SnakeTail(newPosition));
+            tail.addLast(new SnakeTail(newPosition, this, false));
         }
-
-        lastTailPosition = new Point(tail.getLast().getPosition().X + tailChange.X,
-                tail.getLast().getPosition().Y + tailChange.Y);
 
         this.direction = direction;
         this.map = map;
@@ -64,9 +57,11 @@ public class Snake {
         Point lastHeadPosition = new Point(head.getPosition().X, head.getPosition().Y);
         moveHead(DirectionChange.get(direction));
         SnakeTail lastTail = tail.pollLast();
-        lastTailPosition.X = lastTail.getPosition().X;
-        lastTailPosition.Y = lastTail.getPosition().Y;
-        lastTail.setPosition(new Point(lastHeadPosition.X, lastHeadPosition.Y));
+        if (lastTail.getFullTail())
+            growTail(lastTail.getPosition());
+
+        lastTail.setPosition(lastHeadPosition);
+        lastTail.setFullTail(false);
         tail.addFirst(lastTail);
     }
 
@@ -76,11 +71,41 @@ public class Snake {
                 (map.getHeight() + head.getPosition().Y + delta.Y) % map.getHeight()));
     }
 
+    private void growTail(Point lastTailPosition) {
+        tail.addLast(new SnakeTail(lastTailPosition, this, false));
+    }
 
+    public void checkOnCollision(IGame game) {
+        List<IGameObject> objects = game.getMap().getMapObjectsInCell(head.getPosition());
+        objects.stream()
+                .filter(object -> object != head)
+                .forEach(object -> solveCollision(object, game));
+    }
 
-    public void addTail() {
-        SnakeTail new_tail = new SnakeTail(new Point(lastTailPosition.X, lastTailPosition.Y));
-        tail.addLast(new_tail);
-        map.addGameObject(new_tail);
+    private void solveCollision(IGameObject otherObject, IGame game) {
+        if (otherObject instanceof IFood) {
+            ((IFood) otherObject).destroyFood(game);
+            tail.peekFirst().setFullTail(true);
+        }
+        else if (otherObject instanceof SnakeTail || otherObject instanceof SnakeHead) {
+            Snake snake;
+            if (otherObject instanceof SnakeTail)
+                snake = ((SnakeTail) otherObject).getSnake();
+            else
+                snake = ((SnakeHead) otherObject).getSnake();
+            snake.die(game);
+        }
+        else if (otherObject instanceof Rock) {
+            die(game);
+        }
+        else {
+            throw new Error("Unsupported game object");
+        }
+
+    }
+
+    public void die(IGame game) {
+        game.getMap().getMapObjects().remove(head);
+        tail.forEach(tailPart -> game.getMap().getMapObjects().remove(tailPart));
     }
 }

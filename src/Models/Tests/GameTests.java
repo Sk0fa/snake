@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -26,7 +27,6 @@ public class GameTests {
         assertEquals(5, gameMap.getHeight());
         assertTrue(gameMap.getMapObjects().isEmpty());
         assertEquals(gameMap, game.getMap());
-        assertEquals(0, game.getScore());
     }
 
     @Test
@@ -36,6 +36,7 @@ public class GameTests {
         gameMap.addSnake(snake);
         game.makeTurn();
         assertEquals(snake.getHead(), gameMap.getMapObject(new Point(0,1)));
+        assertEquals(2, snake.getTail().toArray().length);
         assertEquals(snake.getTail().toArray()[0], gameMap.getMapObject(new Point(0, 0)));
         assertEquals(snake.getTail().toArray()[1], gameMap.getMapObject(new Point(1, 0)));
     }
@@ -70,5 +71,14 @@ public class GameTests {
         method.setAccessible(true);
         assertTrue((Boolean) method.invoke(gameMap, firstSnake));
         assertFalse((Boolean) method.invoke(gameMap, secondSnake));
+    }
+
+    @Test
+    public void testGetMapObjectsInCell() {
+        FoodHeart food = new FoodHeart(new Point(1, 1));
+        gameMap.addGameObject(food);
+        List<IGameObject> objects = gameMap.getMapObjectsInCell(new Point(1, 1));
+        assertEquals(1, objects.size());
+        assertEquals(food, objects.get(0));
     }
 }

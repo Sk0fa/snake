@@ -21,23 +21,11 @@ public class SnakeHead implements IGameObject {
 
     @Override
     public void setPosition(Point position) {
-        this.position.X = position.X;
-        this.position.Y = position.Y;
+        this.position = position;
     }
 
     @Override
     public Character getCharacter() {
         return character;
-    }
-
-    @Override
-    public void checkOnCollision(IGame game) {
-        IGameObject obj = game.getMap().getMapObject(position);
-
-        if (obj instanceof IFood) {
-            game.changeScore(((IFood) obj).getScoreCost());
-            snake.addTail();
-            ((IFood) obj).destroyFood(game);
-        }
     }
 }

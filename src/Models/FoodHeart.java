@@ -41,10 +41,6 @@ public class FoodHeart implements IGameObject, IFood {
     }
 
     @Override
-    public void checkOnCollision(IGame game) {
-    }
-
-    @Override
     public void destroyFood(IGame game) {
         game.getMap().getMapObjects().remove(this);
     }

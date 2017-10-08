@@ -25,8 +25,25 @@ public class CollisionTests {
         gameMap.addGameObject(food);
         game.makeTurn();
         assertEquals(snake.getHead(), gameMap.getMapObject(new Point(2, 3)));
+        assertEquals(true, snake.getTail().peek().getFullTail());
+    }
+
+    @Test
+    public void testGrowth() {
+        FoodHeart food = new FoodHeart(new Point(2, 3));
+        gameMap.addGameObject(food);
+        for(int i = 0; i < 7; i++)
+            game.makeTurn();
         assertEquals(7, snake.getTail().toArray().length);
-        assertEquals(food.getScoreCost(), game.getScore());
+    }
+
+    @Test
+    public void testBumpIntoRock() {
+        Rock rock = new Rock(new Point(2, 3));
+        gameMap.addGameObject(rock);
+        game.makeTurn();
+        assertEquals(1, gameMap.getMapObjects().size());
+        assertEquals(rock, gameMap.getMapObjects().get(0));
     }
 
     @Test

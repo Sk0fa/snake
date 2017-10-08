@@ -1,7 +1,10 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class GameMap {
     private int width;
@@ -55,21 +58,13 @@ public class GameMap {
     }
 
     public IGameObject getMapObject(Point position) {
-        Optional object =  mapObjects.stream()
-                .filter(obj -> obj.getPosition().equals(position))
-                .findFirst();
+        Optional object = getMapObjectsInCell(position).stream().findFirst();
         return object.isPresent()? (IGameObject) object.get() : null;
     }
 
-    //TODO: maybe delete?
-    public ArrayList<IGameObject> getAllMapObjects(Point position) {
-        ArrayList<IGameObject> list = new ArrayList<>();
-        for (IGameObject obj : mapObjects) {
-            if (obj.getPosition().equals(position)) {
-                list.add(obj);
-            }
-        }
-
-        return list;
+    public List<IGameObject> getMapObjectsInCell(Point position) {
+        return mapObjects.stream()
+                .filter(obj -> obj.getPosition().equals(position))
+                .collect(Collectors.toList());
     }
 }
