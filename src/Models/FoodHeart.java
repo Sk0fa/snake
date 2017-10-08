@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.ArrayList;
-
 public class FoodHeart implements IGameObject, IFood {
     private Point position;
     static private Character character = '❤';

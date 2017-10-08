@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.ArrayList;
-
 public class SimpleGame implements IGame {
 
     private GameMap map;
@@ -19,15 +17,12 @@ public class SimpleGame implements IGame {
 
     @Override
     public void makeTurn() {
-        for (IGameObject obj : map.getMapObjects()) {
-            if (obj instanceof SnakeHead) {
-                ((SnakeHead) obj).getSnake().move();
-            }
-        }
+        map.getMapObjects().stream()
+                .filter(obj -> obj instanceof SnakeHead)
+                .forEach(obj -> ((SnakeHead)obj).getSnake().move());
 
-        for (int i = 0; i < map.getMapObjects().size(); i++) {
-            map.getMapObjects().get(i).checkOnCollision(this);
-        }
+
+        map.getMapObjects().forEach(obj -> obj.checkOnCollision(this));
     }
 
     @Override
