@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class GameMap {
     private int width;
@@ -54,10 +55,10 @@ public class GameMap {
     }
 
     public IGameObject getMapObject(Point position) {
-        return mapObjects.stream()
+        Optional object =  mapObjects.stream()
                 .filter(obj -> obj.getPosition().equals(position))
-                .findFirst()
-                .get();
+                .findFirst();
+        return object.isPresent()? (IGameObject) object.get() : null;
     }
 
     //TODO: maybe delete?

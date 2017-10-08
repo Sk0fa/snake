@@ -45,6 +45,7 @@ public class GameTests {
         FoodHeart food = new FoodHeart(new Point(0,0));
         gameMap.addGameObject(food);
         assertEquals(food, gameMap.getMapObject(new Point(0,0)));
+        assertEquals(null, gameMap.getMapObject(new Point(1, 1)));
     }
 
     @Test
