@@ -36,6 +36,7 @@ public class SnakeMovementTests {
 
     @Test
     public void testSnakeMove() {
+        snake.setDirection(Direction.Down);
         snake.move();
         assertEquals(new Point(0, 1), snake.getHead().getPosition());
         assertEquals(new Point(0, 0), snake.getTail().peek().getPosition());
