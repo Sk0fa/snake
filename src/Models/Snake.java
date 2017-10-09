@@ -7,20 +7,13 @@ public class Snake {
     private LinkedList<SnakeTail> tail;
     private Direction direction;
     private GameMap map;
-    private Map<Direction, Point> DirectionChange;
 
     public Snake(Point headPosition, int tailSize, Direction direction,
                  Direction tailDirection, GameMap map) {
 
-        DirectionChange = new HashMap<>();
-        DirectionChange.put(Direction.Up, new Point(0, -1));
-        DirectionChange.put(Direction.Down, new Point(0, 1));
-        DirectionChange.put(Direction.Right, new Point(1, 0));
-        DirectionChange.put(Direction.Left, new Point(-1, 0));
-
         tail = new LinkedList<>();
         head = new SnakeHead(headPosition, this);
-        Point tailChange = DirectionChange.get(tailDirection);
+        Point tailChange = tailDirection.getDelta();
         for (int i = 1; i < tailSize + 1; i++) {
             Point newPosition = new Point(headPosition.X + i*tailChange.X,
                     headPosition.Y + i*tailChange.Y);
@@ -43,8 +36,10 @@ public class Snake {
         return direction;
     }
 
+    //TODO: вынести сложение в отдельный метод
+    //TODO: immutable point
     public void setDirection(Direction direction) {
-        Point delta = DirectionChange.get(direction);
+        Point delta = direction.getDelta();
         Point newHeadPosition = new Point(head.getPosition().X + delta.X,
                 head.getPosition().Y + delta.Y);
 
@@ -55,7 +50,7 @@ public class Snake {
     
     public void move() {
         Point lastHeadPosition = new Point(head.getPosition().X, head.getPosition().Y);
-        moveHead(DirectionChange.get(direction));
+        moveHead(direction.getDelta());
         SnakeTail lastTail = tail.pollLast();
         if (lastTail.getFullTail())
             growTail(lastTail.getPosition());
@@ -82,6 +77,7 @@ public class Snake {
                 .forEach(object -> solveCollision(object, game));
     }
 
+    //TODO: убрать instanceof и любые явные проверки типа
     private void solveCollision(IGameObject otherObject, IGame game) {
         if (otherObject instanceof IFood) {
             ((IFood) otherObject).destroyFood(game);
@@ -99,7 +95,7 @@ public class Snake {
             die(game);
         }
         else {
-            throw new Error("Unsupported game object");
+            throw new Error("Unsupported game object: " + otherObject.getClass());
         }
 
     }
