@@ -17,7 +17,7 @@ public class SnakeMovementTests {
     @Before
     public void setUp() {
         gameMap = new GameMap(3, 3);
-        snake = new Snake(new Point(0, 0), 1, Direction.Up,
+        snake = new Snake(new Point(0, 0), 2, Direction.Up,
                 Direction.Right, gameMap);
     }
 
@@ -25,7 +25,7 @@ public class SnakeMovementTests {
     public void testCorrectInitialization() {
         assertEquals(snake.getDirection(), Direction.Up);
         assertEquals(snake.getHead().getPosition(), new Point(0, 0));
-        assertEquals(snake.getTail().toArray().length, 1);
+        assertEquals(snake.getTail().toArray().length, 2);
         assertEquals(snake.getTail().peek().getPosition(), new Point(1, 0));
     }
 
@@ -33,6 +33,9 @@ public class SnakeMovementTests {
     public void testSetDirection() {
         snake.setDirection(Direction.Left);
         assertEquals(snake.getDirection(), Direction.Left);
+        snake.setDirection(Direction.Right);
+        assertEquals(snake.getDirection(), Direction.Left);
+        snake.move();
         snake.setDirection(Direction.Right);
         assertEquals(snake.getDirection(), Direction.Left);
     }

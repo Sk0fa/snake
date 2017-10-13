@@ -9,8 +9,11 @@ public class Point {
         this.Y = Y;
     }
 
-    public Point add(Point delta) {
-        return new Point(X + delta.X, Y + delta.Y);
+    public Point add(Point delta, int mapWidth, int mapHeigth) {
+        return new Point(
+                (mapWidth + X + delta.X) % mapWidth,
+                (mapHeigth + Y + delta.Y) % mapHeigth
+        );
     }
 
     public Point scalarProduct(int scalar) {
