@@ -15,8 +15,7 @@ public class Snake {
         head = new SnakeHead(headPosition, this);
         Point tailChange = tailDirection.getDelta();
         for (int i = 1; i < tailSize + 1; i++) {
-            Point newPosition = new Point(headPosition.getX() + i*tailChange.getX(),
-                    headPosition.getY() + i*tailChange.getY());
+            Point newPosition = headPosition.add(tailChange.scalarProduct(i));
             tail.addLast(new SnakeTail(newPosition, this, false));
         }
 
@@ -36,11 +35,9 @@ public class Snake {
         return direction;
     }
 
-    //TODO: вынести сложение в отдельный метод
     public void setDirection(Direction direction) {
         Point delta = direction.getDelta();
-        Point newHeadPosition = new Point(head.getPosition().getX() + delta.getX(),
-                head.getPosition().getY() + delta.getY());
+        Point newHeadPosition = head.getPosition().add(delta);
 
         if (!tail.getFirst().getPosition().equals(newHeadPosition)) {
             this.direction = direction;
@@ -60,9 +57,10 @@ public class Snake {
     }
 
     private void moveHead(Point delta) {
+        Point newPoint = head.getPosition().add(delta);
         head.setPosition(new Point(
-                (map.getWidth() + head.getPosition().getX() + delta.getX()) % map.getWidth(),
-                (map.getHeight() + head.getPosition().getY() + delta.getY()) % map.getHeight()));
+                (map.getWidth() + newPoint.getX()) % map.getWidth(),
+                (map.getHeight() + newPoint.getY()) % map.getHeight()));
     }
 
     private void growTail(Point lastTailPosition) {

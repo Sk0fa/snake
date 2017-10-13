@@ -9,8 +9,12 @@ public class Point {
         this.Y = Y;
     }
 
-    public Point move(Point delta) {
+    public Point add(Point delta) {
         return new Point(X + delta.X, Y + delta.Y);
+    }
+
+    public Point scalarProduct(int scalar) {
+        return new Point(scalar * X, scalar * Y);
     }
 
     public int getX() {
