@@ -1,12 +1,24 @@
 package Models;
 
 public class Point {
-    public int X;
-    public int Y;
+    private int X;
+    private int Y;
 
     public Point(int X, int Y) {
         this.X = X;
         this.Y = Y;
+    }
+
+    public Point move(Point delta) {
+        return new Point(X + delta.X, Y + delta.Y);
+    }
+
+    public int getX() {
+        return X;
+    }
+
+    public int getY() {
+        return Y;
     }
 
     @Override
@@ -17,7 +29,7 @@ public class Point {
         Point point = (Point) o;
 
         if (X != point.X) return false;
-        return Y == point.Y;
+        else return Y == point.Y;
     }
 
     @Override

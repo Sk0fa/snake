@@ -7,7 +7,7 @@ public class SnakeTail implements IGameObject {
     static private Character character = '☯';
 
     public SnakeTail(Point position, Snake parentSnake, boolean isFullTail) {
-        this.position = new Point(position.X, position.Y);
+        this.position = position;
         this.parentSnake = parentSnake;
         this.isFullTail = isFullTail;
     }

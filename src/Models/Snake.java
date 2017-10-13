@@ -15,8 +15,8 @@ public class Snake {
         head = new SnakeHead(headPosition, this);
         Point tailChange = tailDirection.getDelta();
         for (int i = 1; i < tailSize + 1; i++) {
-            Point newPosition = new Point(headPosition.X + i*tailChange.X,
-                    headPosition.Y + i*tailChange.Y);
+            Point newPosition = new Point(headPosition.getX() + i*tailChange.getX(),
+                    headPosition.getY() + i*tailChange.getY());
             tail.addLast(new SnakeTail(newPosition, this, false));
         }
 
@@ -37,11 +37,10 @@ public class Snake {
     }
 
     //TODO: вынести сложение в отдельный метод
-    //TODO: immutable point
     public void setDirection(Direction direction) {
         Point delta = direction.getDelta();
-        Point newHeadPosition = new Point(head.getPosition().X + delta.X,
-                head.getPosition().Y + delta.Y);
+        Point newHeadPosition = new Point(head.getPosition().getX() + delta.getX(),
+                head.getPosition().getY() + delta.getY());
 
         if (!tail.getFirst().getPosition().equals(newHeadPosition)) {
             this.direction = direction;
@@ -49,7 +48,7 @@ public class Snake {
     }
     
     public void move() {
-        Point lastHeadPosition = new Point(head.getPosition().X, head.getPosition().Y);
+        Point lastHeadPosition = head.getPosition();
         moveHead(direction.getDelta());
         SnakeTail lastTail = tail.pollLast();
         if (lastTail.getFullTail())
@@ -62,8 +61,8 @@ public class Snake {
 
     private void moveHead(Point delta) {
         head.setPosition(new Point(
-                (map.getWidth() + head.getPosition().X + delta.X) % map.getWidth(),
-                (map.getHeight() + head.getPosition().Y + delta.Y) % map.getHeight()));
+                (map.getWidth() + head.getPosition().getX() + delta.getX()) % map.getWidth(),
+                (map.getHeight() + head.getPosition().getY() + delta.getY()) % map.getHeight()));
     }
 
     private void growTail(Point lastTailPosition) {

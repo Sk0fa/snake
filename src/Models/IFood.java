@@ -1,6 +1,6 @@
 package Models;
 
 public interface IFood {
-    public int getScoreCost();
-    public void destroyFood(IGame game);
+    int getScoreCost();
+    void destroyFood(IGame game);
 }
