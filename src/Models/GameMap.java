@@ -1,21 +1,18 @@
 package Models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameMap {
     private int width;
     private int height;
     //TODO: change to hashmap
-    private ArrayList<IGameObject> mapObjects;
+    private HashMap<Point, IGameObject> mapObjects;
 
     public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.mapObjects = new ArrayList<>();
+        this.mapObjects = new HashMap<>();
     }
 
     public int getWidth() {
@@ -26,13 +23,13 @@ public class GameMap {
         return height;
     }
 
-    public ArrayList<IGameObject> getMapObjects() {
-        return mapObjects;
+    public IGameObject[] getMapObjects() {
+        return mapObjects.keySet().toArray(new IGameObject[mapObjects.size()]);
     }
 
     public void addGameObject(IGameObject obj) {
         if (isFreeSpace(obj.getPosition()))
-            mapObjects.add(obj);
+            mapObjects.put(obj.getPosition(), obj);
         else
             throw new UnsupportedOperationException("Point " + obj.getPosition() +
                     " was occupied");
@@ -40,7 +37,7 @@ public class GameMap {
 
     public void addSnake(Snake snake) {
         if (isFreeSpaceForSnake(snake)) {
-            mapObjects.add(snake.getHead());
+            mapObjects.put(snake.getHead().getPosition(), snake.getHead());
             mapObjects.addAll(snake.getTail());
         }
         else
