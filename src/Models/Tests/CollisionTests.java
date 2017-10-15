@@ -2,7 +2,6 @@ import Models.*;
 import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 public class CollisionTests {
 
@@ -46,8 +45,8 @@ public class CollisionTests {
         Rock rock = new Rock(new Point(2, 3));
         gameMap.addGameObject(rock);
         game.makeTurn();
-        assertEquals(1, gameMap.getMapObjects().size());
-        assertEquals(rock, gameMap.getMapObjects().get(0));
+        assertEquals(1, gameMap.getMapObjects().length);
+        assertEquals(rock, gameMap.getMapObjects()[0]);
     }
 
     @Test
@@ -58,6 +57,6 @@ public class CollisionTests {
         game.makeTurn();
         snake.setDirection(Direction.Up);
         game.makeTurn();
-        assertTrue(gameMap.getMapObjects().isEmpty());
+        assertEquals(0, gameMap.getMapObjects().length);
     }
 }

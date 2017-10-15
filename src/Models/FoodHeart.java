@@ -4,6 +4,7 @@ public class FoodHeart implements IGameObject, IFood {
     private Point position;
     static private Character character = '❤';
     static private int scoreCost = 10;
+    private boolean isDead = false;
 
     @Override
     public boolean equals(Object o) {
@@ -42,6 +43,16 @@ public class FoodHeart implements IGameObject, IFood {
     @Override
     public Tag getTag() {
         return Tag.Food;
+    }
+
+    @Override
+    public boolean isDead() {
+        return isDead;
+    }
+
+    @Override
+    public void die() {
+        isDead = true;
     }
 
     @Override

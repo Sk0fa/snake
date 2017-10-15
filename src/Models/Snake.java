@@ -70,8 +70,9 @@ public class Snake {
         tail.addLast(newTail);
     }
 
-    public void checkOnCollision(IGameObject[] otherObjects) {
-        Arrays.stream(otherObjects)
+    public void checkOnCollision(IGameObject[] gameObjects) {
+        Arrays.stream(gameObjects)
+                .filter(obj -> obj != head)
                 .filter(obj -> obj.getPosition().equals(head.getPosition()))
                 .forEach(this::solveCollision);
     }

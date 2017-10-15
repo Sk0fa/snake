@@ -1,6 +1,11 @@
 package Models;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
 
 public class SimpleGame implements IGame {
 
@@ -28,10 +33,16 @@ public class SimpleGame implements IGame {
                 .map(head -> ((SnakeHead)head).getSnake())
                 .forEach(snake -> snake.checkOnCollision(objects));
 
-        IGameObject[] newObjects = Arrays.stream(objects)
+        HashSet<IGameObject> newObjects = Arrays.stream(objects)
                 .filter(obj -> !obj.isDead())
-                .toArray(IGameObject[]::new);
+                .collect(Collectors.toCollection(HashSet::new));
 
-        Arrays.stream(newObjects).forEach(obj -> map.addGameObject(obj));
+        Arrays.stream(objects)
+                .filter(obj -> !obj.isDead())
+                .filter(obj -> obj.getTag() == Tag.SnakeHead)
+                .map(obj -> ((SnakeHead)obj).getSnake())
+                .forEach(obj -> newObjects.addAll(obj.getTail()));
+
+        newObjects.forEach(obj -> map.addGameObject(obj));
     }
 }

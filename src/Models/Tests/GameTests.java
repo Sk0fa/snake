@@ -25,7 +25,7 @@ public class GameTests {
     public void testCorrectInitialization() {
         assertEquals(5, gameMap.getWidth());
         assertEquals(5, gameMap.getHeight());
-        assertTrue(gameMap.getMapObjects().isEmpty());
+        assertEquals(0, gameMap.getMapObjects().length);
         assertEquals(gameMap, game.getMap());
     }
 
@@ -46,7 +46,7 @@ public class GameTests {
         FoodHeart food = new FoodHeart(new Point(0,0));
         gameMap.addGameObject(food);
         assertEquals(food, gameMap.getMapObject(new Point(0,0)));
-        assertEquals(null, gameMap.getMapObject(new Point(1, 1)));
+        assertEquals(EmptyObject.class, gameMap.getMapObject(new Point(1, 1)).getClass());
     }
 
     @Test
@@ -55,30 +55,5 @@ public class GameTests {
         gameMap.addGameObject(food);
         assertTrue(gameMap.isFreeSpace(new Point(0, 1)));
         assertFalse(gameMap.isFreeSpace(new Point(1, 1)));
-    }
-
-    @Test
-    public void testIsFreeForSnake() throws NoSuchMethodException,
-            InvocationTargetException, IllegalAccessException {
-        FoodHeart food = new FoodHeart(new Point(1, 1));
-        gameMap.addGameObject(food);
-        Snake firstSnake = new Snake(new Point(0,0), 3, Direction.Down,
-                Direction.Right, gameMap);
-        Snake secondSnake = new Snake(new Point(0, 1), 3, Direction.Down,
-                Direction.Right, gameMap);
-        Method method = gameMap.getClass().getDeclaredMethod("isFreeSpaceForSnake",
-                new Class[] {Snake.class});
-        method.setAccessible(true);
-        assertTrue((Boolean) method.invoke(gameMap, firstSnake));
-        assertFalse((Boolean) method.invoke(gameMap, secondSnake));
-    }
-
-    @Test
-    public void testGetMapObjectsInCell() {
-        FoodHeart food = new FoodHeart(new Point(1, 1));
-        gameMap.addGameObject(food);
-        List<IGameObject> objects = gameMap.getMapObjectsInCell(new Point(1, 1));
-        assertEquals(1, objects.size());
-        assertEquals(food, objects.get(0));
     }
 }
