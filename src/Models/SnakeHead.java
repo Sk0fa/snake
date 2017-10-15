@@ -6,7 +6,7 @@ public class SnakeHead implements IGameObject {
     static private Character character = '★';
 
     public SnakeHead(Point position, Snake snake) {
-        this.position = new Point(position.X,position.Y);
+        this.position = position;
         this.snake = snake;
     }
 

@@ -21,7 +21,7 @@ public class FoodHeart implements IGameObject, IFood {
     }
 
     public FoodHeart(Point position) {
-        this.position = new Point(position.X, position.Y);
+        this.position = position;
     }
 
     @Override
@@ -31,8 +31,7 @@ public class FoodHeart implements IGameObject, IFood {
 
     @Override
     public void setPosition(Point position) {
-        this.position.X = position.X;
-        this.position.Y = position.Y;
+        this.position = position;
     }
 
     @Override

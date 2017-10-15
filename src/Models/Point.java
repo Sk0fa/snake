@@ -1,12 +1,31 @@
 package Models;
 
 public class Point {
-    public int X;
-    public int Y;
+    private int X;
+    private int Y;
 
     public Point(int x, int y) {
         this.X = x;
         this.Y = y;
+    }
+
+    public Point add(Point delta, int mapWidth, int mapHeigth) {
+        return new Point(
+                (mapWidth + X + delta.X) % mapWidth,
+                (mapHeigth + Y + delta.Y) % mapHeigth
+        );
+    }
+
+    public Point scalarProduct(int scalar) {
+        return new Point(scalar * X, scalar * Y);
+    }
+
+    public int getX() {
+        return X;
+    }
+
+    public int getY() {
+        return Y;
     }
 
     @Override
@@ -17,7 +36,7 @@ public class Point {
         Point point = (Point) o;
 
         if (X != point.X) return false;
-        return Y == point.Y;
+        else return Y == point.Y;
     }
 
     @Override
