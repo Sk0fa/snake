@@ -13,11 +13,7 @@ public class View implements IView{
             for (int x = 0; x < map.getWidth(); x++) {
                 Point point = new Point(x, y);
                 IGameObject gameObject = map.getMapObject(point);
-                if(gameObject == null)
-                    System.out.print("| |");
-                else {
-                    System.out.printf("|%c|", gameObject.getCharacter());
-                }
+                System.out.printf("|%c|", gameObject.getCharacter());
             }
             System.out.println();
         }
