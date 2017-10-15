@@ -25,7 +25,7 @@ public class CollisionTests {
         gameMap.addGameObject(food);
         game.makeTurn();
         assertEquals(snake.getHead(), gameMap.getMapObject(new Point(2, 3)));
-        assertEquals(true, snake.getTail().peek().getFullTail());
+        assertEquals(true, snake.getTail().peek().getIsFullTail());
     }
 
     @Test

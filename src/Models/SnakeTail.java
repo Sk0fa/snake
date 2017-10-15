@@ -4,6 +4,7 @@ public class SnakeTail implements IGameObject {
     private Point position;
     private Snake parentSnake;
     private boolean isFullTail;
+    private boolean isDead = false;
     static private Character character = '☯';
 
     public SnakeTail(Point position, Snake parentSnake, boolean isFullTail) {
@@ -32,15 +33,25 @@ public class SnakeTail implements IGameObject {
         return Tag.SnakeTail;
     }
 
+    @Override
+    public boolean isDead() {
+        return isDead;
+    }
+
+    @Override
+    public void die() {
+        isDead = true;
+    }
+
     public Snake getSnake() {
         return parentSnake;
     }
 
-    public boolean getFullTail() {
+    public boolean getIsFullTail() {
         return isFullTail;
     }
 
-    public void setFullTail(boolean value) {
+    public void setIsFullTail(boolean value) {
         isFullTail = value;
     }
 }

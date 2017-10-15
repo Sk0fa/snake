@@ -3,6 +3,7 @@ package Models;
 public class SnakeHead implements IGameObject {
     private Point position;
     private Snake snake;
+    private boolean isDead = false;
     static private Character character = '★';
 
     public SnakeHead(Point position, Snake snake) {
@@ -32,5 +33,15 @@ public class SnakeHead implements IGameObject {
     @Override
     public Tag getTag() {
         return Tag.SnakeHead;
+    }
+
+    @Override
+    public boolean isDead() {
+        return isDead;
+    }
+
+    @Override
+    public void die() {
+        isDead = true;
     }
 }

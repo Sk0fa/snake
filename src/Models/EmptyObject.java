@@ -26,4 +26,14 @@ public class EmptyObject implements IGameObject {
     public Tag getTag() {
         return Tag.EmptyObject;
     }
+
+    @Override
+    public boolean isDead() {
+        return false;
+    }
+
+    @Override
+    public void die() {
+        throw new UnsupportedOperationException("This object cant die");
+    }
 }

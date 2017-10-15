@@ -34,10 +34,13 @@ public class GameMap {
                     " was occupied");
     }
 
+    public void clearMap() {
+        mapObjects.clear();
+    }
+
     public void addSnake(Snake snake) {
         addGameObject(snake.getHead());
-        for (SnakeTail tail : snake.getTail())
-            addGameObject(tail);
+        snake.getTail().forEach(this::addGameObject);
     }
 
     public boolean isFreeSpace(Point point) {

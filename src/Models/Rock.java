@@ -27,4 +27,14 @@ public class Rock implements IGameObject {
     public Tag getTag() {
         return Tag.DeadlyObject;
     }
+
+    @Override
+    public boolean isDead() {
+        return false;
+    }
+
+    @Override
+    public void die() {
+        throw new UnsupportedOperationException("Rock cant die");
+    }
 }

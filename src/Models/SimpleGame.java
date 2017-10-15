@@ -18,14 +18,20 @@ public class SimpleGame implements IGame {
     @Override
     public void makeTurn() {
         IGameObject[] objects = map.getMapObjects();
+        map.clearMap();
         Arrays.stream(objects)
                 .filter(obj -> obj.getTag() == Tag.SnakeHead)
                 .forEach(obj -> ((SnakeHead)obj).getSnake().move());
 
-        Snake[] allSnakes = Arrays.stream(map.getMapObjects())
+        Arrays.stream(objects)
                 .filter(obj -> obj.getTag() == Tag.SnakeHead)
                 .map(head -> ((SnakeHead)head).getSnake())
-                .toArray(Snake[]::new);
-        Arrays.stream(allSnakes).forEach(obj -> obj.checkOnCollision(this));
+                .forEach(snake -> snake.checkOnCollision(objects));
+
+        IGameObject[] newObjects = Arrays.stream(objects)
+                .filter(obj -> !obj.isDead())
+                .toArray(IGameObject[]::new);
+
+        Arrays.stream(newObjects).forEach(obj -> map.addGameObject(obj));
     }
 }

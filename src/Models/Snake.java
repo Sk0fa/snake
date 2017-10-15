@@ -49,13 +49,14 @@ public class Snake {
         Point lastHeadPosition = head.getPosition();
         moveHead(direction.getDelta());
         SnakeTail lastTail = tail.pollLast();
-        Point lastTailPosition = lastTail.getPosition();
+
+
+        if (lastTail.getIsFullTail()) {
+            growTail(lastTail.getPosition());
+            lastTail.setIsFullTail(false);
+        }
+
         lastTail.setPosition(lastHeadPosition);
-
-        if (lastTail.getFullTail())
-            growTail(lastTailPosition);
-
-        lastTail.setFullTail(false);
         tail.addFirst(lastTail);
     }
 
@@ -67,21 +68,19 @@ public class Snake {
     private void growTail(Point lastTailPosition) {
         SnakeTail newTail = new SnakeTail(lastTailPosition, this, false);
         tail.addLast(newTail);
-        map.addGameObject(newTail);
     }
 
-    public void checkOnCollision(IGame game) {
-        List<IGameObject> objects = game.getMap().getMapObjectsInCell(head.getPosition());
-        objects.stream()
-                .filter(object -> object != head)
-                .forEach(object -> solveCollision(object, game));
+    public void checkOnCollision(IGameObject[] otherObjects) {
+        Arrays.stream(otherObjects)
+                .filter(obj -> obj.getPosition().equals(head.getPosition()))
+                .forEach(this::solveCollision);
     }
 
     //TODO: убрать instanceof и любые явные проверки типа
-    private void solveCollision(IGameObject otherObject, IGame game) {
+    private void solveCollision(IGameObject otherObject) {
         if (otherObject.getTag() == Tag.Food) {
-            ((IFood) otherObject).destroyFood(game);
-            tail.peekFirst().setFullTail(true);
+            otherObject.die();
+            tail.peekFirst().setIsFullTail(true);
         }
         else if (otherObject.getTag() == Tag.SnakeTail || otherObject.getTag() == Tag.SnakeHead) {
             Snake snake;
@@ -89,10 +88,10 @@ public class Snake {
                 snake = ((SnakeTail) otherObject).getSnake();
             else
                 snake = ((SnakeHead) otherObject).getSnake();
-            snake.die(game);
+            snake.die();
         }
         else if (otherObject.getTag() == Tag.DeadlyObject) {
-            die(game);
+            die();
         }
         else {
             throw new Error("Unsupported game object: " + otherObject.getClass());
@@ -100,8 +99,8 @@ public class Snake {
 
     }
 
-    public void die(IGame game) {
-        game.getMap().getMapObjects().remove(head);
-        tail.forEach(tailPart -> game.getMap().getMapObjects().remove(tailPart));
+    private void die() {
+        head.die();
+        tail.forEach(SnakeTail::die);
     }
 }

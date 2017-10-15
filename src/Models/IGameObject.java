@@ -5,4 +5,6 @@ public interface IGameObject {
     void setPosition(Point position);
     Character getCharacter();
     Tag getTag();
+    boolean isDead();
+    void die();
 }
