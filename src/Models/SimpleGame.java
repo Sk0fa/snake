@@ -15,18 +15,17 @@ public class SimpleGame implements IGame {
         return map;
     }
 
-    //TODO: с Object[] надо что-то сделать
     @Override
     public void makeTurn() {
-        Object[] objects = map.getMapObjects().toArray();
+        IGameObject[] objects = map.getMapObjects().toArray(new IGameObject[map.getMapObjects().size()]);
         Arrays.stream(objects)
                 .filter(obj -> obj instanceof SnakeHead)
                 .forEach(obj -> ((SnakeHead)obj).getSnake().move());
 
-        Object[] allSnakes = map.getMapObjects().stream()
+        Snake[] allSnakes = map.getMapObjects().stream()
                 .filter(obj -> obj instanceof SnakeHead)
                 .map(head -> ((SnakeHead)head).getSnake())
-                .toArray();
-        Arrays.stream(allSnakes).forEach(obj -> ((Snake)obj).checkOnCollision(this));
+                .toArray(Snake[]::new);
+        Arrays.stream(allSnakes).forEach(obj -> obj.checkOnCollision(this));
     }
 }
