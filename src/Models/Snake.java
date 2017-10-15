@@ -63,7 +63,9 @@ public class Snake {
     }
 
     private void growTail(Point lastTailPosition) {
-        tail.addLast(new SnakeTail(lastTailPosition, this, false));
+        SnakeTail newTail = new SnakeTail(lastTailPosition, this, false);
+        tail.addLast(newTail);
+        map.addGameObject(newTail);
     }
 
     public void checkOnCollision(IGame game) {
