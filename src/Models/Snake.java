@@ -49,10 +49,12 @@ public class Snake {
         Point lastHeadPosition = head.getPosition();
         moveHead(direction.getDelta());
         SnakeTail lastTail = tail.pollLast();
-        if (lastTail.getFullTail())
-            growTail(lastTail.getPosition());
-
+        Point lastTailPosition = lastTail.getPosition();
         lastTail.setPosition(lastHeadPosition);
+
+        if (lastTail.getFullTail())
+            growTail(lastTailPosition);
+
         lastTail.setFullTail(false);
         tail.addFirst(lastTail);
     }

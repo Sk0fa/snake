@@ -35,6 +35,10 @@ public class CollisionTests {
         for(int i = 0; i < 7; i++)
             game.makeTurn();
         assertEquals(7, snake.getTail().toArray().length);
+        assertEquals(
+                snake.getTail().toArray()[snake.getTail().toArray().length - 1],
+                gameMap.getMapObject(new Point(3, 3))
+        );
     }
 
     @Test

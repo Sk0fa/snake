@@ -5,7 +5,6 @@ import Models.Snake;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.LinkedList;
 
 import static junit.framework.Assert.assertEquals;
 
