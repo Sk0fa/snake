@@ -40,6 +40,11 @@ public class FoodHeart implements IGameObject, IFood {
     }
 
     @Override
+    public Tag getTag() {
+        return Tag.Food;
+    }
+
+    @Override
     public void destroyFood(IGame game) {
         game.getMap().getMapObjects().remove(this);
     }

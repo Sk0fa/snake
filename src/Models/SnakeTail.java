@@ -27,6 +27,11 @@ public class SnakeTail implements IGameObject {
         return character;
     }
 
+    @Override
+    public Tag getTag() {
+        return Tag.SnakeTail;
+    }
+
     public Snake getSnake() {
         return parentSnake;
     }

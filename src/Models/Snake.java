@@ -79,19 +79,19 @@ public class Snake {
 
     //TODO: убрать instanceof и любые явные проверки типа
     private void solveCollision(IGameObject otherObject, IGame game) {
-        if (otherObject instanceof IFood) {
+        if (otherObject.getTag() == Tag.Food) {
             ((IFood) otherObject).destroyFood(game);
             tail.peekFirst().setFullTail(true);
         }
-        else if (otherObject instanceof SnakeTail || otherObject instanceof SnakeHead) {
+        else if (otherObject.getTag() == Tag.SnakeTail || otherObject.getTag() == Tag.SnakeHead) {
             Snake snake;
-            if (otherObject instanceof SnakeTail)
+            if (otherObject.getTag() == Tag.SnakeTail)
                 snake = ((SnakeTail) otherObject).getSnake();
             else
                 snake = ((SnakeHead) otherObject).getSnake();
             snake.die(game);
         }
-        else if (otherObject instanceof Rock) {
+        else if (otherObject.getTag() == Tag.DeadlyObject) {
             die(game);
         }
         else {

@@ -57,7 +57,7 @@ public class GameMap {
 
     public IGameObject getMapObject(Point position) {
         Optional object = getMapObjectsInCell(position).stream().findFirst();
-        return object.isPresent()? (IGameObject) object.get() : null;
+        return object.isPresent()? (IGameObject) object.get() : new EmptyObject(position);
     }
 
     public List<IGameObject> getMapObjectsInCell(Point position) {

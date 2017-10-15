@@ -1,10 +1,9 @@
 package Models;
 
-public class Rock implements IGameObject {
-
+public class EmptyObject implements IGameObject {
     private Point position;
 
-    public Rock(Point position) {
+    public EmptyObject(Point position) {
         this.position = position;
     }
 
@@ -20,11 +19,11 @@ public class Rock implements IGameObject {
 
     @Override
     public Character getCharacter() {
-        return '#';
+        return ' ';
     }
 
     @Override
     public Tag getTag() {
-        return Tag.DeadlyObject;
+        return Tag.EmptyObject;
     }
 }

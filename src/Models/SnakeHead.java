@@ -28,4 +28,9 @@ public class SnakeHead implements IGameObject {
     public Character getCharacter() {
         return character;
     }
+
+    @Override
+    public Tag getTag() {
+        return Tag.SnakeHead;
+    }
 }
