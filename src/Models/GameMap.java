@@ -5,7 +5,6 @@ import java.util.*;
 public class GameMap {
     private int width;
     private int height;
-    //TODO: change to hashmap
     private HashMap<Point, IGameObject> mapObjects;
 
     public GameMap(int width, int height) {
