@@ -27,11 +27,11 @@ public class SimpleGame implements IGame {
         Arrays.stream(snakes).forEach(snake -> snake.checkOnCollision(objects));
 
         HashSet<IGameObject> newObjects = Arrays.stream(objects)
-                .filter(obj -> !obj.isDead())
+                .filter(obj -> !obj.isDisabled())
                 .collect(Collectors.toCollection(HashSet::new));
 
         Arrays.stream(snakes)
-                .filter(snake -> !snake.getHead().isDead())
+                .filter(snake -> !snake.getHead().isDisabled())
                 .forEach(snake -> newObjects.addAll(snake.getTail()));
 
         newObjects.forEach(obj -> map.addGameObject(obj));

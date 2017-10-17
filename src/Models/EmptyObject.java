@@ -23,13 +23,13 @@ public class EmptyObject implements IGameObject {
     }
 
     @Override
-    public boolean isDead() {
+    public boolean isDisabled() {
         return false;
     }
 
     @Override
-    public void die() {
-        throw new UnsupportedOperationException("This object cant die");
+    public void disable() {
+        throw new UnsupportedOperationException("This object cant disable");
     }
 
     @Override

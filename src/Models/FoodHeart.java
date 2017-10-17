@@ -41,18 +41,18 @@ public class FoodHeart implements IGameObject, IFood {
     }
 
     @Override
-    public boolean isDead() {
+    public boolean isDisabled() {
         return isDead;
     }
 
     @Override
-    public void die() {
+    public void disable() {
         isDead = true;
     }
 
     @Override
     public void solveCollisionWithSnake(Snake snake) {
-        die();
+        disable();
         snake.eatFood(this);
     }
 

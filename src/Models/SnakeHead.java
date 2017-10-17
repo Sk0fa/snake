@@ -31,12 +31,12 @@ public class SnakeHead implements IGameObject {
     }
 
     @Override
-    public boolean isDead() {
+    public boolean isDisabled() {
         return isDead;
     }
 
     @Override
-    public void die() {
+    public void disable() {
         isDead = true;
     }
 

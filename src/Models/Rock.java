@@ -24,18 +24,18 @@ public class Rock implements IGameObject {
     }
 
     @Override
-    public boolean isDead() {
+    public boolean isDisabled() {
         return false;
     }
 
     @Override
-    public void die() {
-        throw new UnsupportedOperationException("Rock cant die");
+    public void disable() {
+        throw new UnsupportedOperationException("Rock cant disable");
     }
 
     @Override
     public void solveCollisionWithSnake(Snake snake) {
-        snake.getHead().die();
-        snake.getTail().forEach(SnakeTail::die);
+        snake.getHead().disable();
+        snake.getTail().forEach(SnakeTail::disable);
     }
 }

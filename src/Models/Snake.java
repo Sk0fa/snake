@@ -15,7 +15,7 @@ public class Snake {
         head = new SnakeHead(headPosition, this);
         Point tailChange = tailDirection.getDelta();
         for (int i = 1; i < tailSize + 1; i++) {
-            Point newPosition = headPosition.add(tailChange.scalarProduct(i),
+            Point newPosition = headPosition.add(tailChange.multiplicationByScalar(i),
                     map.getWidth(), map.getHeight());
             tail.addLast(new SnakeTail(newPosition, this, false));
         }
@@ -70,7 +70,7 @@ public class Snake {
         tail.addLast(newTail);
     }
 
-    public void eatFood(IFood food) {
+    public void eatFood() {
         tail.peekFirst().setIsFullTail(true);
     }
 
@@ -82,8 +82,8 @@ public class Snake {
     }
 
     public void die() {
-        head.die();
-        tail.forEach(SnakeTail::die);
+        head.disable();
+        tail.forEach(SnakeTail::disable);
         map.removeSnake(this);
     }
 }

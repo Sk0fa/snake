@@ -16,7 +16,7 @@ public final class Point {
         );
     }
 
-    public Point scalarProduct(int scalar) {
+    public Point multiplicationByScalar(int scalar) {
         return new Point(scalar * X, scalar * Y);
     }
 
