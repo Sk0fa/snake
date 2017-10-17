@@ -2,10 +2,7 @@ package Models;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toSet;
 
 public class SimpleGame implements IGame {
 
@@ -23,25 +20,19 @@ public class SimpleGame implements IGame {
     @Override
     public void makeTurn() {
         IGameObject[] objects = map.getMapObjects();
+        Snake[] snakes = map.getSnakes();
         map.clearMap();
-        Arrays.stream(objects)
-                .filter(obj -> obj.getTag() == Tag.SnakeHead)
-                .forEach(obj -> ((SnakeHead)obj).getSnake().move());
 
-        Arrays.stream(objects)
-                .filter(obj -> obj.getTag() == Tag.SnakeHead)
-                .map(head -> ((SnakeHead)head).getSnake())
-                .forEach(snake -> snake.checkOnCollision(objects));
+        Arrays.stream(snakes).forEach(Snake::move);
+        Arrays.stream(snakes).forEach(snake -> snake.checkOnCollision(objects));
 
         HashSet<IGameObject> newObjects = Arrays.stream(objects)
                 .filter(obj -> !obj.isDead())
                 .collect(Collectors.toCollection(HashSet::new));
 
-        Arrays.stream(objects)
-                .filter(obj -> !obj.isDead())
-                .filter(obj -> obj.getTag() == Tag.SnakeHead)
-                .map(obj -> ((SnakeHead)obj).getSnake())
-                .forEach(obj -> newObjects.addAll(obj.getTail()));
+        Arrays.stream(snakes)
+                .filter(snake -> !snake.getHead().isDead())
+                .forEach(snake -> newObjects.addAll(snake.getTail()));
 
         newObjects.forEach(obj -> map.addGameObject(obj));
     }

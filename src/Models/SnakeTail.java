@@ -29,11 +29,6 @@ public class SnakeTail implements IGameObject {
     }
 
     @Override
-    public Tag getTag() {
-        return Tag.SnakeTail;
-    }
-
-    @Override
     public boolean isDead() {
         return isDead;
     }
@@ -41,6 +36,11 @@ public class SnakeTail implements IGameObject {
     @Override
     public void die() {
         isDead = true;
+    }
+
+    @Override
+    public void solveCollisionWithSnake(Snake snake) {
+        snake.die();
     }
 
     public Snake getSnake() {

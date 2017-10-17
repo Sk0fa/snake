@@ -23,11 +23,6 @@ public class EmptyObject implements IGameObject {
     }
 
     @Override
-    public Tag getTag() {
-        return Tag.EmptyObject;
-    }
-
-    @Override
     public boolean isDead() {
         return false;
     }
@@ -35,5 +30,10 @@ public class EmptyObject implements IGameObject {
     @Override
     public void die() {
         throw new UnsupportedOperationException("This object cant die");
+    }
+
+    @Override
+    public void solveCollisionWithSnake(Snake snake) {
+
     }
 }

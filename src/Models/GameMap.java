@@ -6,6 +6,7 @@ public class GameMap {
     private int width;
     private int height;
     private HashMap<Point, IGameObject> mapObjects;
+    private ArrayList<Snake> snakes = new ArrayList<>();
 
     public GameMap(int width, int height) {
         this.width = width;
@@ -40,6 +41,15 @@ public class GameMap {
     public void addSnake(Snake snake) {
         addGameObject(snake.getHead());
         snake.getTail().forEach(this::addGameObject);
+        snakes.add(snake);
+    }
+
+    public Snake[] getSnakes() {
+        return snakes.toArray(new Snake[snakes.size()]);
+    }
+
+    public void removeSnake(Snake snake) {
+        snakes.remove(snake);
     }
 
     public boolean isFreeSpace(Point point) {

@@ -41,11 +41,6 @@ public class FoodHeart implements IGameObject, IFood {
     }
 
     @Override
-    public Tag getTag() {
-        return Tag.Food;
-    }
-
-    @Override
     public boolean isDead() {
         return isDead;
     }
@@ -53,6 +48,12 @@ public class FoodHeart implements IGameObject, IFood {
     @Override
     public void die() {
         isDead = true;
+    }
+
+    @Override
+    public void solveCollisionWithSnake(Snake snake) {
+        die();
+        snake.eatFood(this);
     }
 
     @Override

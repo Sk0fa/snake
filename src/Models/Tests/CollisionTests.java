@@ -58,5 +58,6 @@ public class CollisionTests {
         snake.setDirection(Direction.Up);
         game.makeTurn();
         assertEquals(0, gameMap.getMapObjects().length);
+        assertEquals(0, gameMap.getSnakes().length);
     }
 }

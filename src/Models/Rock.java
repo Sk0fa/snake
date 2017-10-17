@@ -24,11 +24,6 @@ public class Rock implements IGameObject {
     }
 
     @Override
-    public Tag getTag() {
-        return Tag.DeadlyObject;
-    }
-
-    @Override
     public boolean isDead() {
         return false;
     }
@@ -36,5 +31,11 @@ public class Rock implements IGameObject {
     @Override
     public void die() {
         throw new UnsupportedOperationException("Rock cant die");
+    }
+
+    @Override
+    public void solveCollisionWithSnake(Snake snake) {
+        snake.getHead().die();
+        snake.getTail().forEach(SnakeTail::die);
     }
 }

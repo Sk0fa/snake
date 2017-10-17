@@ -70,38 +70,20 @@ public class Snake {
         tail.addLast(newTail);
     }
 
+    public void eatFood(IFood food) {
+        tail.peekFirst().setIsFullTail(true);
+    }
+
     public void checkOnCollision(IGameObject[] gameObjects) {
         Arrays.stream(gameObjects)
                 .filter(obj -> obj != head)
                 .filter(obj -> obj.getPosition().equals(head.getPosition()))
-                .forEach(this::solveCollision);
+                .forEach(gameObject -> gameObject.solveCollisionWithSnake(this));
     }
 
-    //TODO: убрать instanceof и любые явные проверки типа
-    private void solveCollision(IGameObject otherObject) {
-        if (otherObject.getTag() == Tag.Food) {
-            otherObject.die();
-            tail.peekFirst().setIsFullTail(true);
-        }
-        else if (otherObject.getTag() == Tag.SnakeTail || otherObject.getTag() == Tag.SnakeHead) {
-            Snake snake;
-            if (otherObject.getTag() == Tag.SnakeTail)
-                snake = ((SnakeTail) otherObject).getSnake();
-            else
-                snake = ((SnakeHead) otherObject).getSnake();
-            snake.die();
-        }
-        else if (otherObject.getTag() == Tag.DeadlyObject) {
-            die();
-        }
-        else {
-            throw new Error("Unsupported game object: " + otherObject.getClass());
-        }
-
-    }
-
-    private void die() {
+    public void die() {
         head.die();
         tail.forEach(SnakeTail::die);
+        map.removeSnake(this);
     }
 }

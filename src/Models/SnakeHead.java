@@ -31,11 +31,6 @@ public class SnakeHead implements IGameObject {
     }
 
     @Override
-    public Tag getTag() {
-        return Tag.SnakeHead;
-    }
-
-    @Override
     public boolean isDead() {
         return isDead;
     }
@@ -43,5 +38,10 @@ public class SnakeHead implements IGameObject {
     @Override
     public void die() {
         isDead = true;
+    }
+
+    @Override
+    public void solveCollisionWithSnake(Snake snake) {
+        snake.die();
     }
 }
