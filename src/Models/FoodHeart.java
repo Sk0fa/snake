@@ -53,7 +53,7 @@ public class FoodHeart implements IGameObject, IFood {
     @Override
     public void solveCollisionWithSnake(Snake snake) {
         disable();
-        snake.eatFood(this);
+        snake.eatFood();
     }
 
     @Override
