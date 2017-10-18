@@ -8,6 +8,7 @@ public class Snake {
     private Direction direction;
     private GameMap map;
     private int fullness = 0;
+    private int score = 0;
 
     public Snake(Point headPosition, int tailSize, Direction direction,
                  Direction tailDirection, GameMap map) {
@@ -75,6 +76,7 @@ public class Snake {
 
     public void eatFood(IFood food) {
         fullness += food.getFoodValue();
+        score += food.getScoreCost();
     }
 
     public void checkOnCollision(IGameObject[] gameObjects) {
@@ -88,5 +90,9 @@ public class Snake {
         head.disable();
         tail.forEach(SnakeTail::disable);
         map.removeSnake(this);
+    }
+
+    public int getScore() {
+        return score;
     }
 }
