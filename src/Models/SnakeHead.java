@@ -1,9 +1,7 @@
 package Models;
 
-public class SnakeHead implements IGameObject {
-    private Point position;
+public class SnakeHead extends GameObject {
     private Snake snake;
-    private boolean isDead = false;
     static private Character character = '★';
 
     public SnakeHead(Point position, Snake snake) {
@@ -16,28 +14,8 @@ public class SnakeHead implements IGameObject {
     }
 
     @Override
-    public Point getPosition() {
-        return position;
-    }
-
-    @Override
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    @Override
     public Character getCharacter() {
         return character;
-    }
-
-    @Override
-    public boolean isDisabled() {
-        return isDead;
-    }
-
-    @Override
-    public void disable() {
-        isDead = true;
     }
 
     @Override

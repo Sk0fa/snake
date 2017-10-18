@@ -1,19 +1,7 @@
 package Models;
 
-public class EmptyObject implements IGameObject {
-    private Point position;
-
+public class EmptyObject extends GameObject {
     public EmptyObject(Point position) {
-        this.position = position;
-    }
-
-    @Override
-    public Point getPosition() {
-        return position;
-    }
-
-    @Override
-    public void setPosition(Point position) {
         this.position = position;
     }
 
