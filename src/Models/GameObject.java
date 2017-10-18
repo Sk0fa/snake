@@ -2,7 +2,7 @@ package Models;
 
 public abstract class GameObject implements IGameObject {
     protected Point position;
-    protected boolean isDead = false;
+    protected boolean isDisabled = false;
 
     @Override
     public Point getPosition() {
@@ -16,11 +16,11 @@ public abstract class GameObject implements IGameObject {
 
     @Override
     public boolean isDisabled() {
-        return isDead;
+        return isDisabled;
     }
 
     @Override
     public void disable() {
-        isDead = true;
+        isDisabled = true;
     }
 }

@@ -7,6 +7,7 @@ public class Snake {
     private LinkedList<SnakeTail> tail;
     private Direction direction;
     private GameMap map;
+    private int fullness = 0;
 
     public Snake(Point headPosition, int tailSize, Direction direction,
                  Direction tailDirection, GameMap map) {
@@ -51,13 +52,15 @@ public class Snake {
         SnakeTail lastTail = tail.pollLast();
 
 
-        if (lastTail.getIsFullTail()) {
+        if (lastTail.isFullTail()) {
             growTail(lastTail.getPosition());
-            lastTail.setIsFullTail(false);
         }
 
-        lastTail.setPosition(lastHeadPosition);
-        tail.addFirst(lastTail);
+        SnakeTail newTail = new SnakeTail(lastHeadPosition, this, fullness > 0);
+        if (fullness > 0) fullness--;
+
+        tail.addFirst(newTail);
+        lastTail.disable();
     }
 
     private void moveHead(Point delta) {
@@ -70,8 +73,8 @@ public class Snake {
         tail.addLast(newTail);
     }
 
-    public void eatFood() {
-        tail.peekFirst().setIsFullTail(true);
+    public void eatFood(IFood food) {
+        fullness += food.getFoodValue();
     }
 
     public void checkOnCollision(IGameObject[] gameObjects) {

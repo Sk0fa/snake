@@ -2,7 +2,7 @@ package Models;
 
 public class SnakeTail extends GameObject {
     private Snake parentSnake;
-    private boolean isFullTail;
+    private final boolean isFullTail;
     static private Character character = '☯';
 
     public SnakeTail(Point position, Snake parentSnake, boolean isFullTail) {
@@ -25,11 +25,7 @@ public class SnakeTail extends GameObject {
         return parentSnake;
     }
 
-    public boolean getIsFullTail() {
+    public boolean isFullTail() {
         return isFullTail;
-    }
-
-    public void setIsFullTail(boolean value) {
-        isFullTail = value;
     }
 }

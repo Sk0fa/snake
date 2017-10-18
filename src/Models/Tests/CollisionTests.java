@@ -24,19 +24,20 @@ public class CollisionTests {
         gameMap.addGameObject(food);
         game.makeTurn();
         assertEquals(snake.getHead(), gameMap.getMapObject(new Point(2, 3)));
-        assertEquals(true, snake.getTail().peek().getIsFullTail());
+        game.makeTurn();
+        assertEquals(true, snake.getTail().peek().isFullTail());
     }
 
     @Test
     public void testGrowth() {
         FoodHeart food = new FoodHeart(new Point(2, 3));
         gameMap.addGameObject(food);
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < 8; i++)
             game.makeTurn();
         assertEquals(7, snake.getTail().toArray().length);
         assertEquals(
                 snake.getTail().toArray()[snake.getTail().toArray().length - 1],
-                gameMap.getMapObject(new Point(3, 3))
+                gameMap.getMapObject(new Point(2, 3))
         );
     }
 

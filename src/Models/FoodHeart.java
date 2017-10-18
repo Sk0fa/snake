@@ -1,10 +1,9 @@
 package Models;
 
-public class FoodHeart implements IGameObject, IFood {
-    private Point position;
+public class FoodHeart extends GameObject implements IFood {
     static private Character character = '❤';
     static private int scoreCost = 10;
-    private boolean isDead = false;
+    static private int foodValue = 1;
 
     @Override
     public boolean equals(Object o) {
@@ -26,34 +25,19 @@ public class FoodHeart implements IGameObject, IFood {
     }
 
     @Override
-    public Point getPosition() {
-        return position;
-    }
-
-    @Override
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    @Override
     public Character getCharacter() {
         return character;
     }
 
     @Override
-    public boolean isDisabled() {
-        return isDead;
-    }
-
-    @Override
-    public void disable() {
-        isDead = true;
-    }
-
-    @Override
     public void solveCollisionWithSnake(Snake snake) {
         disable();
-        snake.eatFood();
+        snake.eatFood(this);
+    }
+
+    @Override
+    public int getFoodValue() {
+        return foodValue;
     }
 
     @Override
