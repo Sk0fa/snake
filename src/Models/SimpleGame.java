@@ -1,15 +1,15 @@
 package Models;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class SimpleGame implements IGame {
 
-    GameMap map;
-    ArrayList<SnakeHead> checkHeads;
+    private GameMap map;
 
     public SimpleGame(GameMap map) {
         this.map = map;
-        checkHeads = new ArrayList<SnakeHead>();
     }
 
     @Override
@@ -18,28 +18,22 @@ public class SimpleGame implements IGame {
     }
 
     @Override
-    public void MakeTurn() {
-        checkHeads.clear();
-        for (int i = 0; i < map.getWidth(); i++) {
-            for (int k = 0; k < map.getHeight(); k++) {
-                if (!map.isFreeSpace(new Point(i, k))) {
-                    IGameObject obj = map.GetMapObject(new Point(i, k));
-                    if (obj instanceof SnakeHead && !headWasCheck((SnakeHead) obj)) {
-                        ((SnakeHead) obj).getSnake().Move();
-                        checkHeads.add((SnakeHead) obj);
-                    }
-                }
-            }
-        }
-    }
+    public void makeTurn() {
+        IGameObject[] objects = map.getMapObjects();
+        Snake[] snakes = map.getSnakes();
+        map.clearMap();
 
-    private boolean headWasCheck(SnakeHead head) {
-        for (SnakeHead h : checkHeads) {
-            if (h.equals(head)) {
-                return true;
-            }
-        }
+        Arrays.stream(snakes).forEach(Snake::move);
+        Arrays.stream(snakes).forEach(snake -> snake.checkOnCollision(objects));
 
-        return false;
+        HashSet<IGameObject> newObjects = Arrays.stream(objects)
+                .filter(obj -> !obj.isDisabled())
+                .collect(Collectors.toCollection(HashSet::new));
+
+        Arrays.stream(snakes)
+                .filter(snake -> !snake.getHead().isDisabled())
+                .forEach(snake -> newObjects.addAll(snake.getTail()));
+
+        newObjects.forEach(obj -> map.addGameObject(obj));
     }
 }

@@ -1,22 +1,31 @@
 package Models;
 
-public class SnakeTail implements IGameObject {
-    private Point position;
+public class SnakeTail extends GameObject {
+    private Snake parentSnake;
+    private final boolean isFullTail;
+    static private Character character = '☯';
 
-    public SnakeTail(Point position) {
-        this.position = new Point(0, 0);
-        this.position.X = position.X;
-        this.position.Y = position.Y;
+    public SnakeTail(Point position, Snake parentSnake, boolean isFullTail) {
+        this.position = position;
+        this.parentSnake = parentSnake;
+        this.isFullTail = isFullTail;
     }
 
     @Override
-    public Point getPosition() {
-        return position;
+    public Character getCharacter() {
+        return character;
     }
 
     @Override
-    public void setPosition(Point position) {
-        this.position.X = position.X;
-        this.position.Y = position.Y;
+    public void solveCollisionWithSnake(Snake snake) {
+        snake.die();
+    }
+
+    public Snake getSnake() {
+        return parentSnake;
+    }
+
+    public boolean isFullTail() {
+        return isFullTail;
     }
 }

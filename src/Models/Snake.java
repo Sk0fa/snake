@@ -1,31 +1,28 @@
 package Models;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class Snake {
     private SnakeHead head;
-    private ArrayList<SnakeTail> tail;
+    private LinkedList<SnakeTail> tail;
     private Direction direction;
-    private Map<Direction, Integer> intDirections;
     private GameMap map;
+    private int fullness = 0;
+    private int score = 0;
 
+    public Snake(Point headPosition, int tailSize, Direction direction,
+                 Direction tailDirection, GameMap map) {
 
-    public Snake(Point headPosition, int tailSize, Direction direction, GameMap map) {
-        tail = new ArrayList<SnakeTail>();
+        tail = new LinkedList<>();
         head = new SnakeHead(headPosition, this);
-        for (int i = 0; i < tailSize; i ++) {
-            Point newPosition = new Point(headPosition.X + i + 1, headPosition.Y);
-            tail.add(new SnakeTail(newPosition));
+        Point tailChange = tailDirection.getDelta();
+        for (int i = 1; i < tailSize + 1; i++) {
+            Point newPosition = headPosition.add(tailChange.multiplicationByScalar(i),
+                    map.getWidth(), map.getHeight());
+            tail.addLast(new SnakeTail(newPosition, this, false));
         }
 
         this.direction = direction;
-        intDirections = new HashMap<Direction, Integer>();
-        intDirections.put(Direction.Down, -1);
-        intDirections.put(Direction.Up, 1);
-        intDirections.put(Direction.Left, -1);
-        intDirections.put(Direction.Right, 1);
         this.map = map;
     }
 
@@ -33,7 +30,7 @@ public class Snake {
         return head;
     }
 
-    public ArrayList<SnakeTail> getTail() {
+    public Queue<SnakeTail> getTail() {
         return tail;
     }
 
@@ -42,49 +39,60 @@ public class Snake {
     }
 
     public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
+        Point delta = direction.getDelta();
+        Point newHeadPosition = head.getPosition().add(delta, map.getWidth(), map.getHeight());
 
-    public void Move() {
-        int dy = 0;
-        int dx = 0;
-        Point lastPos = new Point(head.getPosition().X, head.getPosition().Y);
-        Point lastPosTail = new Point(0, 0);
-
-        if (direction == Direction.Up || direction == Direction.Down) {
-            dy = intDirections.get(direction);
-        }
-        else {
-            dx = intDirections.get(direction);
-        }
-
-        setHeadPosition(dx, dy);
-
-        for (SnakeTail partOfTail : this.tail) {
-            lastPosTail.X = partOfTail.getPosition().X;
-            lastPosTail.Y = partOfTail.getPosition().Y;
-            partOfTail.setPosition(new Point(lastPos.X, lastPos.Y));
-            lastPos.X = lastPosTail.X;
-            lastPos.Y = lastPosTail.Y;
+        if (!tail.getFirst().getPosition().equals(newHeadPosition)) {
+            this.direction = direction;
         }
     }
+    
+    public void move() {
+        Point lastHeadPosition = head.getPosition();
+        moveHead(direction.getDelta());
+        SnakeTail lastTail = tail.pollLast();
 
-    private void setHeadPosition(int dx, int dy) {
-        if (head.getPosition().Y + dy > map.getWidth() - 1) {
-            head.setPosition(new Point(head.getPosition().X, 0));
+
+        if (lastTail.isFullTail()) {
+            growTail(lastTail.getPosition());
         }
-        else if (head.getPosition().Y + dy < 0) {
-            head.setPosition(new Point(head.getPosition().X, map.getWidth() - 1));
-        }
-        else if (head.getPosition().X + dx > map.getHeight() - 1) {
-            head.setPosition(new Point(0, head.getPosition().Y));
-        }
-        else if (head.getPosition().X + dx < 0) {
-            head.setPosition(new Point(map.getHeight() - 1, head.getPosition().Y));
-        }
-        else {
-            head.setPosition(new Point(head.getPosition().X + dx,
-                    head.getPosition().Y + dy));
-        }
+
+        SnakeTail newTail = new SnakeTail(lastHeadPosition, this, fullness > 0);
+        if (fullness > 0) fullness--;
+
+        tail.addFirst(newTail);
+        lastTail.disable();
+    }
+
+    private void moveHead(Point delta) {
+        Point newPoint = head.getPosition().add(delta, map.getWidth(), map.getHeight());
+        head.setPosition(newPoint);
+    }
+
+    private void growTail(Point lastTailPosition) {
+        SnakeTail newTail = new SnakeTail(lastTailPosition, this, false);
+        tail.addLast(newTail);
+    }
+
+    public void eatFood(IFood food) {
+        fullness += food.getFoodValue();
+        score += food.getScoreCost();
+    }
+
+    public void checkOnCollision(IGameObject[] gameObjects) {
+        Arrays.stream(gameObjects)
+                .filter(obj -> obj != head)
+                .filter(obj -> obj.getPosition().equals(head.getPosition()))
+                .forEach(gameObject -> gameObject.solveCollisionWithSnake(this));
+    }
+
+    public void die() {
+        head.disable();
+        tail.forEach(SnakeTail::disable);
+        map.removeSnake(this);
+    }
+
+    public int getScore() {
+        return score;
     }
 }

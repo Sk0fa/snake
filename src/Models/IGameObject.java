@@ -1,6 +1,10 @@
 package Models;
 
 public interface IGameObject {
-    public Point getPosition();
-    public void setPosition(Point position);
+    Point getPosition();
+    void setPosition(Point position);
+    Character getCharacter();
+    boolean isDisabled();
+    void disable();
+    void solveCollisionWithSnake(Snake snake);
 }

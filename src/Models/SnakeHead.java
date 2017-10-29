@@ -1,13 +1,11 @@
 package Models;
 
-public class SnakeHead implements IGameObject {
-    private Point position;
+public class SnakeHead extends GameObject {
     private Snake snake;
+    static private Character character = '★';
 
     public SnakeHead(Point position, Snake snake) {
-        this.position = new Point(0,0);
-        this.position.X = position.X;
-        this.position.Y = position.Y;
+        this.position = position;
         this.snake = snake;
     }
 
@@ -16,23 +14,12 @@ public class SnakeHead implements IGameObject {
     }
 
     @Override
-    public Point getPosition() {
-        return position;
+    public Character getCharacter() {
+        return character;
     }
 
     @Override
-    public void setPosition(Point position) {
-        this.position.X = position.X;
-        this.position.Y = position.Y;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) return true;
-
-        SnakeHead s = (SnakeHead) o;
-
-        return s.getPosition().X == position.X && s.getPosition().Y == position.Y
-                && snake == s.getSnake();
+    public void solveCollisionWithSnake(Snake snake) {
+        snake.die();
     }
 }

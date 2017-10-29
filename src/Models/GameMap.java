@@ -1,19 +1,17 @@
 package Models;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class GameMap {
     private int width;
     private int height;
-    private ArrayList<IGameObject> mapObjects;
+    private HashMap<Point, IGameObject> mapObjects;
+    private ArrayList<Snake> snakes = new ArrayList<>();
 
     public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.mapObjects = new ArrayList<IGameObject>();
+        this.mapObjects = new HashMap<>();
     }
 
     public int getWidth() {
@@ -24,67 +22,43 @@ public class GameMap {
         return height;
     }
 
-    public ArrayList<IGameObject> getMapObjects() {
-        return mapObjects;
+    public IGameObject[] getMapObjects() {
+        return mapObjects.values().toArray(new IGameObject[mapObjects.size()]);
     }
 
-    public void AddGameObject(IGameObject obj) {
-        if (isFreeSpace(obj.getPosition())) {
-            mapObjects.add(obj);
-            return;
-        }
-
-        /*for (int i = 0; i < width; i++) {
-            for (int k = 0; k < height; k++) {
-                if (isFreeSpace(new Point(i, k))) {
-                    obj.setPosition(new Point(i, k));
-                    mapObjects.put(obj.getPosition(), obj);
-                    return;
-                }
-            }
-        }*/
-
-        throw new UnsupportedOperationException("Space is busy");
+    public void addGameObject(IGameObject obj) {
+        if (isFreeSpace(obj.getPosition()))
+            mapObjects.put(obj.getPosition(), obj);
+        else
+            throw new UnsupportedOperationException("Point " + obj.getPosition() +
+                    " was occupied");
     }
 
-    public void AddSnake(Snake snake) {
-        if (isFreeSpaceForSnake(snake)) {
-            mapObjects.add(snake.getHead());
-
-            for (SnakeTail partOfTail : snake.getTail()) {
-                mapObjects.add(partOfTail);
-            }
-        }
+    public void clearMap() {
+        mapObjects.clear();
     }
 
-    private boolean isFreeSpaceForSnake(Snake snake) {
-        if (isFreeSpace(snake.getHead().getPosition())) {
-            for (SnakeTail partOfTail : snake.getTail()) {
-                if (!isFreeSpace(partOfTail.getPosition())) {
-                    return false;
-                }
-            }
-            return true;
-        }
+    public void addSnake(Snake snake) {
+        addGameObject(snake.getHead());
+        snake.getTail().forEach(this::addGameObject);
+        snakes.add(snake);
+    }
 
-        return false;
+    public Snake[] getSnakes() {
+        return snakes.toArray(new Snake[snakes.size()]);
+    }
+
+    public void removeSnake(Snake snake) {
+        snakes.remove(snake);
     }
 
     public boolean isFreeSpace(Point point) {
-        for (IGameObject obj : mapObjects) {
-            if (obj.getPosition().equals(point)) {
-                return false;
-            }
-        }
-        return true;
+        return !mapObjects.containsKey(point);
     }
 
-    public IGameObject GetMapObject(Point position) {
-        for (IGameObject obj : mapObjects) {
-            if (obj.getPosition().equals(position)) {
-                return obj;
-            }
-        }
-        return null;
+    public IGameObject getMapObject(Point position) {
+        if (isFreeSpace(position))
+            return new EmptyObject(position);
+        return mapObjects.get(position);
     }
 }
