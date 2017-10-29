@@ -1,8 +1,7 @@
 package View;
 
 import Models.*;
-
-import java.util.Map;
+import javax.swing.*;
 
 public class View implements IView{
     
@@ -13,7 +12,7 @@ public class View implements IView{
             for (int x = 0; x < map.getWidth(); x++) {
                 Point point = new Point(x, y);
                 IGameObject gameObject = map.getMapObject(point);
-                System.out.printf("|%c|", gameObject.getCharacter());
+                System.out.printf(" %c ", gameObject.getCharacter());
             }
             System.out.println();
         }
