@@ -22,9 +22,7 @@ public class Gui extends JFrame {
         Display display = new Display(game.getMap());
         this.getContentPane().add(display);
 
-        mainThread = new Thread(() -> {
-            startGame(game, display);
-        });
+        mainThread = new Thread(() -> startGame(game, display));
         mainThread.start();
     }
 
