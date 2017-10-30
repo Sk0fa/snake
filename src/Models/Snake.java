@@ -82,6 +82,7 @@ public class Snake {
     public void checkOnCollision(IGameObject[] gameObjects) {
         Arrays.stream(gameObjects)
                 .filter(obj -> obj != head)
+                .filter(obj -> !obj.isDisabled())
                 .filter(obj -> obj.getPosition().equals(head.getPosition()))
                 .forEach(gameObject -> gameObject.solveCollisionWithSnake(this));
     }

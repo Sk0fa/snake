@@ -5,7 +5,6 @@ import Controller.SimpleSnakeController;
 import Models.Direction;
 import Models.IGame;
 import Models.Snake;
-import javafx.scene.input.KeyCode;
 
 import javax.swing.*;
 import javax.swing.Timer;
