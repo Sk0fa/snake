@@ -4,6 +4,8 @@ import Models.IGame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SimpleGameController implements IGameController{
 
@@ -18,12 +20,6 @@ public class SimpleGameController implements IGameController{
         return this.game;
     }
 
-    class ButtonEventListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-
-        }
-
+    public void actionPerformed(KeyEvent actionEvent) {
     }
 }
