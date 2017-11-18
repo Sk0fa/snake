@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Time;
 import java.util.HashMap;
 
 public class Gui extends JFrame {
@@ -55,8 +56,21 @@ public class Gui extends JFrame {
         Display display = new Display(game.getMap());
         this.getContentPane().add(display);
 
-        mainThread = new Thread(() -> startGame(game, display));
-        mainThread.start();
+        Timer timer = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                makeFrame(game, display);
+            }
+        });
+        timer.start();
+
+        //mainThread = new Thread(() -> startGame(game, display));
+        //mainThread.start();
+    }
+
+    private void makeFrame(IGame game, Display display) {
+        game.makeTurn();
+        display.repaint();
     }
 
     public void startGame(IGame game, Display display) {
