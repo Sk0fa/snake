@@ -1,6 +1,7 @@
 package Models;
 
-import View.Visitor;
+import View.IVisitor;
+import View.SimplePainter;
 
 public class FoodHeart extends GameObject implements IFood {
     static private Character character = '❤';
@@ -47,7 +48,7 @@ public class FoodHeart extends GameObject implements IFood {
         return scoreCost;
     }
 
-    public void accept(Visitor visitor) {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 }

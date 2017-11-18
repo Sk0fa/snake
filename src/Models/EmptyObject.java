@@ -1,6 +1,7 @@
 package Models;
 
-import View.Visitor;
+import View.IVisitor;
+import View.SimplePainter;
 
 public class EmptyObject extends GameObject {
     public EmptyObject(Point position) {
@@ -27,7 +28,7 @@ public class EmptyObject extends GameObject {
 
     }
 
-    public void accept(Visitor visitor) {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 }

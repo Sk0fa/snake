@@ -5,19 +5,8 @@ import Models.Point;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 public class Display extends JPanel {
-
-    private final static HashMap<Class, Color> colors = new HashMap<>();
-    static
-    {
-        colors.put(EmptyObject.class, Color.WHITE);
-        colors.put(FoodHeart.class, Color.YELLOW);
-        colors.put(Rock.class, Color.BLACK);
-        colors.put(SnakeHead.class, Color.RED);
-        colors.put(SnakeTail.class, Color.GREEN);
-    }
     private GameMap map;
 
     public Display(GameMap map) {
@@ -33,7 +22,7 @@ public class Display extends JPanel {
     }
 
     public void paintCell(int x, int y, IGameObject object, Graphics2D g) {
-        Visitor visitor = new Visitor(g, new Point(x, y));
+        SimplePainter visitor = new SimplePainter(g, new Point(x, y));
         object.accept(visitor);
     }
 }

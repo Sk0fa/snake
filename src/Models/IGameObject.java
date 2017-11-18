@@ -1,6 +1,6 @@
 package Models;
 
-import View.Visitor;
+import View.IVisitor;
 
 public interface IGameObject {
     Point getPosition();
@@ -9,5 +9,5 @@ public interface IGameObject {
     boolean isDisabled();
     void disable();
     void solveCollisionWithSnake(Snake snake);
-    void accept(Visitor visitor);
+    void accept(IVisitor visitor);
 }

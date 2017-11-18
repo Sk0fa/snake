@@ -1,7 +1,5 @@
 package Models;
 
-import View.Visitor;
-
 public abstract class GameObject implements IGameObject {
     protected Point position;
     protected boolean isDisabled = false;

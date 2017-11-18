@@ -5,12 +5,12 @@ import Models.Point;
 
 import java.awt.*;
 
-public class Visitor {
+public class SimplePainter implements IVisitor{
 
     private Graphics2D graphics2D;
     private Point position;
 
-    Visitor(Graphics2D g, Point position) {
+    SimplePainter(Graphics2D g, Point position) {
         graphics2D = g;
         this.position = position;
     }

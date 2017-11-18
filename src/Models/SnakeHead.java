@@ -1,6 +1,7 @@
 package Models;
 
-import View.Visitor;
+import View.IVisitor;
+import View.SimplePainter;
 
 public class SnakeHead extends GameObject {
     private Snake snake;
@@ -25,7 +26,7 @@ public class SnakeHead extends GameObject {
         snake.die();
     }
 
-    public void accept(Visitor visitor) {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 }
