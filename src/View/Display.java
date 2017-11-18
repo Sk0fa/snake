@@ -32,10 +32,8 @@ public class Display extends JPanel {
                 paintCell(x, y, map.getMapObject(new Point(x, y)), g2);
     }
 
-    public void paintCell(int x, int y, IGameObject object, Graphics g) {
-        if (!colors.containsKey(object.getClass()))
-            throw new RuntimeException(object.getClass() + " not contains in colors");
-        g.setColor(colors.get(object.getClass()));
-        g.fillRect(x * Gui.CELLSIZE, y * Gui.CELLSIZE, Gui.CELLSIZE, Gui.CELLSIZE);
+    public void paintCell(int x, int y, IGameObject object, Graphics2D g) {
+        Visitor visitor = new Visitor(g, new Point(x, y));
+        object.accept(visitor);
     }
 }

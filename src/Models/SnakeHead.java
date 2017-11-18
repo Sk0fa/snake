@@ -1,5 +1,7 @@
 package Models;
 
+import View.Visitor;
+
 public class SnakeHead extends GameObject {
     private Snake snake;
     static private Character character = '★';
@@ -21,5 +23,9 @@ public class SnakeHead extends GameObject {
     @Override
     public void solveCollisionWithSnake(Snake snake) {
         snake.die();
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }

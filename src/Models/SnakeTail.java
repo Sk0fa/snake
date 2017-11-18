@@ -1,5 +1,7 @@
 package Models;
 
+import View.Visitor;
+
 public class SnakeTail extends GameObject {
     private Snake parentSnake;
     private final boolean isFullTail;
@@ -27,5 +29,9 @@ public class SnakeTail extends GameObject {
 
     public boolean isFullTail() {
         return isFullTail;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
