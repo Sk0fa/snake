@@ -2,7 +2,6 @@ package Controller;
 
 import Models.Direction;
 import Models.Snake;
-import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;

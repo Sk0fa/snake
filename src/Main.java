@@ -18,12 +18,5 @@ public class Main {
         Gui gui = new Gui(game);
         gui.setVisible(true);
 
-        /*
-        while (true) {
-            view.redraw(game);
-            game.makeTurn();
-            Thread.sleep(1000);
-        }
-        */
     }
 }

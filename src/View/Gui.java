@@ -5,7 +5,6 @@ import Controller.SimpleSnakeController;
 import Models.Direction;
 import Models.IGame;
 import Models.Snake;
-import javafx.scene.input.KeyCode;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -56,9 +55,7 @@ public class Gui extends JFrame {
         Display display = new Display(game.getMap());
         this.getContentPane().add(display);
 
-        mainThread = new Thread(() -> {
-            startGame(game, display);
-        });
+        mainThread = new Thread(() -> startGame(game, display));
         mainThread.start();
     }
 
