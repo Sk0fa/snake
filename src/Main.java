@@ -16,6 +16,7 @@ public class Main {
         SimpleGame game = new SimpleGame(map);
 
         Gui gui = new Gui(game);
+
         gui.setVisible(true);
 
     }
