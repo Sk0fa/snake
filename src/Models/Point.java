@@ -1,6 +1,8 @@
 package Models;
 
-public final class Point {
+import java.io.Serializable;
+
+public final class Point implements Serializable {
     private final int X;
     private final int Y;
 

@@ -1,8 +1,9 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class GameMap {
+public class GameMap implements Serializable {
     private int width;
     private int height;
     private HashMap<Point, IGameObject> mapObjects;
