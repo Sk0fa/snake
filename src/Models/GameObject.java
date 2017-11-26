@@ -1,6 +1,8 @@
 package Models;
 
-public abstract class GameObject implements IGameObject {
+import java.io.Serializable;
+
+public abstract class GameObject implements IGameObject, Serializable {
     protected Point position;
     protected boolean isDisabled = false;
 

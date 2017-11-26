@@ -1,8 +1,9 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Snake {
+public class Snake implements Serializable {
     private SnakeHead head;
     private LinkedList<SnakeTail> tail;
     private Direction direction;
