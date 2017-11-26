@@ -8,17 +8,13 @@ import Models.Snake;
 
 import javax.swing.*;
 import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.Time;
 import java.util.HashMap;
 
 public class Gui extends JFrame {
 
     static final int CELLSIZE = 32;
-    private Thread mainThread;
 
     public Gui(IGame game) {
         super("Snake");
@@ -56,16 +52,8 @@ public class Gui extends JFrame {
         Display display = new Display(game.getMap());
         this.getContentPane().add(display);
 
-        Timer timer = new Timer(200, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                makeFrame(game, display);
-            }
-        });
+        Timer timer = new Timer(200, e -> makeFrame(game, display));
         timer.start();
-
-        //mainThread = new Thread(() -> startGame(game, display));
-        //mainThread.start();
     }
 
     private void makeFrame(IGame game, Display display) {
@@ -73,16 +61,4 @@ public class Gui extends JFrame {
         display.repaint();
     }
 
-    public void startGame(IGame game, Display display) {
-        while (true) {
-            try {
-                game.makeTurn();
-                display.repaint();
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-    }
 }

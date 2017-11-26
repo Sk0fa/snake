@@ -1,5 +1,8 @@
 package Models;
 
+import View.IVisitor;
+import View.SimplePainter;
+
 public class Rock extends GameObject {
 
     public Rock(Point position) {
@@ -25,5 +28,9 @@ public class Rock extends GameObject {
     public void solveCollisionWithSnake(Snake snake) {
         snake.getHead().disable();
         snake.getTail().forEach(SnakeTail::disable);
+    }
+
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
     }
 }

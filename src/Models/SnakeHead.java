@@ -1,5 +1,8 @@
 package Models;
 
+import View.IVisitor;
+import View.SimplePainter;
+
 public class SnakeHead extends GameObject {
     private Snake snake;
     static private Character character = '★';
@@ -21,5 +24,9 @@ public class SnakeHead extends GameObject {
     @Override
     public void solveCollisionWithSnake(Snake snake) {
         snake.die();
+    }
+
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
     }
 }

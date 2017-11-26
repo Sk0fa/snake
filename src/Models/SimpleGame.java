@@ -1,10 +1,11 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
-public class SimpleGame implements IGame {
+public class SimpleGame implements IGame, Serializable {
 
     private GameMap map;
 

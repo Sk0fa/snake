@@ -1,5 +1,8 @@
 package Models;
 
+import View.IVisitor;
+import View.SimplePainter;
+
 public class SnakeTail extends GameObject {
     private Snake parentSnake;
     private final boolean isFullTail;
@@ -27,5 +30,9 @@ public class SnakeTail extends GameObject {
 
     public boolean isFullTail() {
         return isFullTail;
+    }
+
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
     }
 }

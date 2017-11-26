@@ -1,5 +1,8 @@
 package Models;
 
+import View.IVisitor;
+import View.SimplePainter;
+
 public class EmptyObject extends GameObject {
     public EmptyObject(Point position) {
         this.position = position;
@@ -23,5 +26,9 @@ public class EmptyObject extends GameObject {
     @Override
     public void solveCollisionWithSnake(Snake snake) {
 
+    }
+
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
     }
 }
