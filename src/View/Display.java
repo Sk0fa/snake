@@ -25,4 +25,8 @@ public class Display extends JPanel {
         SimplePainter visitor = new SimplePainter(g, new Point(x, y));
         object.accept(visitor);
     }
+
+    public void setMap(GameMap map) {
+        this.map = map;
+    }
 }

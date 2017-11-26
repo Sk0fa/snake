@@ -14,10 +14,14 @@ import java.util.HashMap;
 
 public class Gui extends JFrame {
 
+
     static final int CELLSIZE = 32;
+    private IGame game;
+    private Display display;
 
     public Gui(IGame game) {
         super("Snake");
+        this.game = game;
 
         // Контроллер для игры
         SimpleGameController gameController = new SimpleGameController(game);
@@ -49,16 +53,21 @@ public class Gui extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
 
-        Display display = new Display(game.getMap());
+        display = new Display(game.getMap());
         this.getContentPane().add(display);
 
-        Timer timer = new Timer(200, e -> makeFrame(game, display));
+        Timer timer = new Timer(200, e -> makeFrame());
         timer.start();
     }
 
-    private void makeFrame(IGame game, Display display) {
+    private void makeFrame() {
         game.makeTurn();
         display.repaint();
+    }
+
+    public void setGame(IGame game) {
+        this.game = game;
+        display.setMap(game.getMap());
     }
 
 }
