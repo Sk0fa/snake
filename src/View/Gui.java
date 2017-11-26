@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ISnakeController;
 import Controller.SimpleGameController;
 import Controller.SimpleSnakeController;
 import Models.Direction;
@@ -23,7 +24,22 @@ public class Gui extends JFrame {
         super("Snake");
         this.game = game;
 
-        // Контроллер для игры
+        createGameController();
+        createSnakeControllers();
+
+        this.setBounds(100, 100, CELLSIZE * game.getMap().getWidth(),
+                CELLSIZE * game.getMap().getHeight());
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+
+        display = new Display(game.getMap());
+        this.getContentPane().add(display);
+
+        Timer timer = new Timer(200, e -> makeFrame());
+        timer.start();
+    }
+
+    private void createGameController() {
         SimpleGameController gameController = new SimpleGameController(game, this);
         this.addKeyListener(new KeyAdapter() {
             @Override
@@ -31,8 +47,9 @@ public class Gui extends JFrame {
                 gameController.actionPerformed(e);
             }
         });
+    }
 
-        // Контроллер для змеек
+    private void createSnakeControllers() {
         for(Snake snake : game.getMap().getSnakes()) {
             HashMap<Integer, Direction> actions = new HashMap<>();
             actions.put(KeyEvent.VK_A, Direction.Left);
@@ -47,17 +64,6 @@ public class Gui extends JFrame {
                 }
             });
         }
-
-        this.setBounds(100, 100, CELLSIZE * game.getMap().getWidth(),
-                CELLSIZE * game.getMap().getHeight());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-
-        display = new Display(game.getMap());
-        this.getContentPane().add(display);
-
-        Timer timer = new Timer(200, e -> makeFrame());
-        timer.start();
     }
 
     private void makeFrame() {
@@ -68,6 +74,8 @@ public class Gui extends JFrame {
     public void setGame(IGame game) {
         this.game = game;
         display.setMap(game.getMap());
+        createGameController();
+        createSnakeControllers();
     }
 
 }
