@@ -24,7 +24,7 @@ public class Gui extends JFrame {
         this.game = game;
 
         // Контроллер для игры
-        SimpleGameController gameController = new SimpleGameController(game);
+        SimpleGameController gameController = new SimpleGameController(game, this);
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
