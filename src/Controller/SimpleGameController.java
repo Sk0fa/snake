@@ -9,7 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
 
-public class SimpleGameController implements IGameController{
+public class SimpleGameController implements IGameController {
 
     private static final String FILENAME = "data.dat";
     private IGame game;
@@ -21,7 +21,7 @@ public class SimpleGameController implements IGameController{
     }
 
     @Override
-    public IGame GetGame() {
+    public IGame getGame() {
         return this.game;
     }
 

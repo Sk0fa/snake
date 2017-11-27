@@ -1,16 +1,10 @@
 package Models;
 
 import View.IVisitor;
-import View.SimplePainter;
 
 public class EmptyObject extends GameObject {
     public EmptyObject(Point position) {
         this.position = position;
-    }
-
-    @Override
-    public Character getCharacter() {
-        return ' ';
     }
 
     @Override

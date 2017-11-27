@@ -1,6 +1,5 @@
 package View;
 
-import Controller.ISnakeController;
 import Controller.SimpleGameController;
 import Controller.SimpleSnakeController;
 import Models.Direction;

@@ -1,10 +1,8 @@
 package Models;
 
 import View.IVisitor;
-import View.SimplePainter;
 
 public class FoodHeart extends GameObject implements IFood {
-    static private Character character = '❤';
     static private int scoreCost = 10;
     static private int foodValue = 1;
 
@@ -25,11 +23,6 @@ public class FoodHeart extends GameObject implements IFood {
 
     public FoodHeart(Point position) {
         this.position = position;
-    }
-
-    @Override
-    public Character getCharacter() {
-        return character;
     }
 
     @Override

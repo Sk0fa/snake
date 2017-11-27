@@ -10,11 +10,6 @@ public class Rock extends GameObject {
     }
 
     @Override
-    public Character getCharacter() {
-        return '#';
-    }
-
-    @Override
     public boolean isDisabled() {
         return false;
     }
