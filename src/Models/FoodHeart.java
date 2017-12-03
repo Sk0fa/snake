@@ -3,6 +3,8 @@ package Models;
 import View.IVisitor;
 import View.SimplePainter;
 
+import java.util.HashMap;
+
 public class FoodHeart extends GameObject implements IFood {
     static private Character character = '❤';
     static private int scoreCost = 10;
