@@ -3,13 +3,10 @@ package Controller;
 import Models.IGame;
 import View.Gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
 
-public class SimpleGameController implements IGameController{
+public class SimpleGameController implements IGameController {
 
     private static final String FILENAME = "data.dat";
     private IGame game;
@@ -21,7 +18,7 @@ public class SimpleGameController implements IGameController{
     }
 
     @Override
-    public IGame GetGame() {
+    public IGame getGame() {
         return this.game;
     }
 
@@ -30,22 +27,16 @@ public class SimpleGameController implements IGameController{
             case KeyEvent.VK_F5:
                 try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
                     oos.writeObject(this.game);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
                 break;
             case KeyEvent.VK_F6:
                 try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
                     IGame loadGame = (IGame)ois.readObject();
                     gui.setGame(loadGame);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                } catch (ClassNotFoundException | IOException e) {
+                    throw new RuntimeException(e);
                 }
                 break;
         }

@@ -1,11 +1,9 @@
 package Models;
 
 import View.IVisitor;
-import View.SimplePainter;
 
 public class SnakeHead extends GameObject {
     private Snake snake;
-    static private Character character = '★';
 
     public SnakeHead(Point position, Snake snake) {
         this.position = position;
@@ -14,11 +12,6 @@ public class SnakeHead extends GameObject {
 
     public Snake getSnake() {
         return snake;
-    }
-
-    @Override
-    public Character getCharacter() {
-        return character;
     }
 
     @Override

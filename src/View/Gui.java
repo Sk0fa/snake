@@ -1,6 +1,5 @@
 package View;
 
-import Controller.ISnakeController;
 import Controller.SimpleGameController;
 import Controller.SimpleSnakeController;
 import Models.Direction;
@@ -74,7 +73,6 @@ public class Gui extends JFrame {
     public void setGame(IGame game) {
         this.game = game;
         display.setMap(game.getMap());
-        createGameController();
         createSnakeControllers();
     }
 

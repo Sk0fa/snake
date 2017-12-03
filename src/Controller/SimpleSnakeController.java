@@ -17,12 +17,12 @@ public class SimpleSnakeController implements ISnakeController{
     }
 
     @Override
-    public Snake GetSnake() {
+    public Snake getSnake() {
         return snake;
     }
 
     @Override
-    public void SetDirection(Direction direction) {
+    public void setDirection(Direction direction) {
         snake.setDirection(direction);
     }
 
