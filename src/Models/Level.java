@@ -8,7 +8,7 @@ public class Level {
 
     public Level(HashMap<Character, IGameObject> objsChar, String[] rows) {
         this.objsChar = objsChar;
-        LoadLevel(rows);
+        loadLevel(rows);
     }
 
     public HashMap<Character, IGameObject> getObjsChar() {
@@ -19,7 +19,7 @@ public class Level {
         return map;
     }
 
-    public void LoadLevel(String[] rows) {
+    private void loadLevel(String[] rows) {
         map = new GameMap(rows[0].length(), rows.length);
 
         for (int i = 0; i < rows.length; i++) {
