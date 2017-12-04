@@ -1,9 +1,10 @@
 package View;
 
-import Models.Level;
+import Models.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -35,7 +36,18 @@ public class StartWindow extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(false);
+                GameMap map = new GameMap(7, 7);
+                Snake snake = new Snake(new Point(3, 3), 2,
+                                        Direction.Up, Direction.Right, map);
+                FoodHeart heart = new FoodHeart(new Point(3, 0));
+                map.addGameObject(heart);
+                map.addSnake(snake);
+                SimpleGame game = new SimpleGame(map);
 
+                Gui gui = new Gui(game);
+
+                gui.setVisible(true);
             }
         });
         content.add(startButton);
