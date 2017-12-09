@@ -75,5 +75,4 @@ public class Gui extends JFrame {
         display.setMap(game.getMap());
         createSnakeControllers();
     }
-
 }

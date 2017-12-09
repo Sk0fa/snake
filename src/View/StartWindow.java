@@ -37,22 +37,22 @@ public class StartWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 setVisible(false);
-                GameMap map = new GameMap(7, 7);
-                Snake snake = new Snake(new Point(3, 3), 2,
-                                        Direction.Up, Direction.Right, map);
-                FoodHeart heart = new FoodHeart(new Point(3, 0));
-                map.addGameObject(heart);
-                map.addSnake(snake);
-                SimpleGame game = new SimpleGame(map);
 
+//                GameMap map = new GameMap(7, 7);
+//                Snake snake = new Snake(new Point(3, 3), 2,
+//                                        Direction.Up, Direction.Right, map);
+//                FoodHeart heart = new FoodHeart(new Point(3, 0));
+//                map.addGameObject(heart);
+//                map.addSnake(snake);
+//                SimpleGame game = new SimpleGame(map);
+
+                Level levelCreator = new Level();
+                IGame game = levelCreator.loadGame();
                 Gui gui = new Gui(game);
-
                 gui.setVisible(true);
             }
         });
         content.add(startButton);
         content.add(levelList);
-
     }
-
 }
