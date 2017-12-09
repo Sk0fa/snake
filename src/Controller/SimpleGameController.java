@@ -35,6 +35,7 @@ public class SimpleGameController implements IGameController {
                 try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
                     IGame loadGame = (IGame)ois.readObject();
                     gui.setGame(loadGame);
+                    game = loadGame;
                 } catch (ClassNotFoundException | IOException e) {
                     throw new RuntimeException(e);
                 }
