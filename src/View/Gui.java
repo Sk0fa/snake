@@ -67,6 +67,9 @@ public class Gui extends JFrame {
 
     private void makeFrame() {
         game.makeTurn();
+        if (game.getMap().getFoodCount() == 0) {
+            game.getMap().addRandomFood();
+        }
         display.repaint();
     }
 
