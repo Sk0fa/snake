@@ -11,10 +11,10 @@ public final class Point implements Serializable {
         this.Y = y;
     }
 
-    public Point add(Point delta, int mapWidth, int mapHeigth) {
+    public Point add(Point delta, int mapWidth, int mapHeight) {
         return new Point(
                 (mapWidth + X + delta.X) % mapWidth,
-                (mapHeigth + Y + delta.Y) % mapHeigth
+                (mapHeight + Y + delta.Y) % mapHeight
         );
     }
 

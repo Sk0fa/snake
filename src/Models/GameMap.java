@@ -23,16 +23,51 @@ public class GameMap implements Serializable {
         return height;
     }
 
+    public int getFoodCount() {
+        return (int) mapObjects.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .filter(gameObject -> gameObject instanceof IFood)
+                .count();
+    }
+
+
+    public boolean isFullMap() {
+        return mapObjects.size() == width * height;
+    }
+
+    public void addRandomFood() {
+        if (!isFullMap()) {
+            Point point = getRandomPoint();
+            FoodHeart food = new FoodHeart(point);
+            addGameObject(food);
+        }
+    }
+
+    private Point getRandomPoint() {
+        Random random = new Random();
+        Point point = new Point(random.nextInt(width), random.nextInt(height));
+        while (mapObjects.containsKey(point)) {
+            point = new Point(random.nextInt(width), random.nextInt(height));
+        }
+        return point;
+    }
+
     public IGameObject[] getMapObjects() {
         return mapObjects.values().toArray(new IGameObject[mapObjects.size()]);
     }
 
+    public boolean isInsideMap(Point point) {
+        int x = point.getX();
+        int y = point.getY();
+        return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
     public void addGameObject(IGameObject obj) {
-        if (isFreeSpace(obj.getPosition()))
+        Point objectPosition = obj.getPosition();
+        if (isFreeSpace(objectPosition) && isInsideMap(objectPosition))
             mapObjects.put(obj.getPosition(), obj);
         else
-            throw new UnsupportedOperationException("Point " + obj.getPosition() +
-                    " was occupied");
+            throw new UnsupportedOperationException("Wrong point: " + obj.getPosition());
     }
 
     public void clearMap() {

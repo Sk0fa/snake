@@ -46,7 +46,7 @@ public class StartWindow extends JFrame {
 //                map.addSnake(snake);
 //                SimpleGame game = new SimpleGame(map);
 
-                Level levelCreator = new Level();
+                Level levelCreator = new Level((String)levelList.getSelectedItem());
                 IGame game = levelCreator.loadGame();
                 Gui gui = new Gui(game);
                 gui.setVisible(true);

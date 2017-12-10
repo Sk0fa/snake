@@ -32,7 +32,7 @@ public class Level {
 //    }
 
     //TODO: Vlad, напиши класс
-    public Level() {
+    public Level(String levelName) {
 
     }
 
