@@ -29,7 +29,7 @@ public class StartWindow extends JFrame {
 
         File levelDirectory = new File("levels");
         File[] files = levelDirectory.listFiles();
-        String[] fileNames = Arrays.stream(files).map(File::getName).toArray(String[]::new);
+        String[] fileNames = Arrays.stream(files != null ? files : new File[0]).map(File::getName).toArray(String[]::new);
         JComboBox levelList = new JComboBox(fileNames);
 
         JButton startButton = new JButton("Start");
@@ -37,17 +37,10 @@ public class StartWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 setVisible(false);
-
-//                GameMap map = new GameMap(7, 7);
-//                Snake snake = new Snake(new Point(3, 3), 2,
-//                                        Direction.Up, Direction.Right, map);
-//                FoodHeart heart = new FoodHeart(new Point(3, 0));
-//                map.addGameObject(heart);
-//                map.addSnake(snake);
-//                SimpleGame game = new SimpleGame(map);
-
-                Level levelCreator = new Level();
-                IGame game = levelCreator.loadGame();
+                String selectedLevel = levelList.getSelectedIndex() != -1 ?
+                        levelList.getSelectedItem().toString() : levelList.getItemAt(0).toString();
+                Level levelCreator = new Level(selectedLevel);
+                IGame game = levelCreator.getGame();
                 Gui gui = new Gui(game);
                 gui.setVisible(true);
             }

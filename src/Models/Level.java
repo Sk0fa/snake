@@ -1,42 +1,26 @@
 package Models;
 
-import java.util.HashMap;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class Level {
-    private HashMap<Character, IGameObject> objsChar = new HashMap<>();
-    private GameMap map;
+    private IGame game;
 
-//    public Level(HashMap<Character, IGameObject> objsChar, String[] rows) {
-//        this.objsChar = objsChar;
-//        loadLevel(rows);
-//    }
-//
-//    public HashMap<Character, IGameObject> getObjsChar() {
-//        return objsChar;
-//    }
-//
-//    public GameMap getMap() {
-//        return map;
-//    }
-//
-//    private void loadLevel(String[] rows) {
-//        map = new GameMap(rows[0].length(), rows.length);
-//
-//        for (int i = 0; i < rows.length; i++) {
-//            for (int j = 0; j < rows[i].length(); j++) {
-//                IGameObject newObj = objsChar.get(rows[i].charAt(j));
-//                newObj.setPosition(new Point(i, j));
-//                map.addGameObject(newObj);
-//            }
-//        }
-//    }
-
-    //TODO: Vlad, напиши класс
-    public Level() {
-
+    public Level(String filename) {
+        loadGame(filename);
     }
 
-    public IGame loadGame() {
-        return null;
+    public void loadGame(String filename) {
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("levels/" + filename))) {
+            IGame loadGame = (IGame)ois.readObject();
+            this.game = loadGame;
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public IGame getGame() {
+        return game;
     }
 }
