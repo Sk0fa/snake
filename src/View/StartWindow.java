@@ -44,11 +44,17 @@ public class StartWindow extends JFrame {
 //                GameMap map = new GameMap(30, 20);
 //                map.addSnake(new Snake(new Point(4, 17), 3, Direction.Up, Direction.Down,
 //                        map));
-//                for (int y = 9; y > 1; y--){
+//                for (int y = 3; y < 17; y++) {
+//                    for (int x = 3; x < 22; x += 3) {
+//                        map.addGameObject(new Rock(new Point(x, y)));
+//                    }
+//                }
+
+/*                for (int y = 9; y > 1; y--){
 //                    map.addGameObject(new Rock(new Point(3, y)));
 //                }
 //                for (int y = 9; y > 3; y--){
-//                    map.addGameObject(new Rock(new Point(5, y)));
+//                    map.addGameObject(new Rock(new Point  (5, y)));
 //                }
 //                for (int x = 4; x < 15; x++){
 //                    map.addGameObject(new Rock(new Point(x, 2)));
@@ -62,8 +68,8 @@ public class StartWindow extends JFrame {
 //                for (int y = 9; y > 2; y--){
 //                    map.addGameObject(new Rock(new Point(14, y)));
 //                }
-//                map.addGameObject(new FoodHeart(new Point(8, 3)));
-//                game = new SimpleGame(map);
+//                map.addGameObject(new FoodHeart(new Point(8, 3)));*/
+                //game = new SimpleGame(map);
                 Gui gui = new Gui(game);
                 gui.setVisible(true);
             }
