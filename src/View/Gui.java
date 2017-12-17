@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Gui extends JFrame {
@@ -18,6 +19,7 @@ public class Gui extends JFrame {
     static final int CELLSIZE = 32;
     private IGame game;
     private Display display;
+    private Timer timer;
 
     public Gui(IGame game) {
         super("Snake");
@@ -34,7 +36,7 @@ public class Gui extends JFrame {
         display = new Display(game.getMap());
         this.getContentPane().add(display);
 
-        Timer timer = new Timer(200, e -> makeFrame());
+        timer = new Timer(200, e -> makeFrame());
         timer.start();
     }
 
@@ -67,6 +69,13 @@ public class Gui extends JFrame {
 
     private void makeFrame() {
         game.makeTurn();
+        if (Arrays.stream(game.getMap().getSnakes())
+                .filter(snake -> !snake.getHead().isDisabled()).count() == 0) {
+            timer.stop();
+            setVisible(false);
+            StartWindow startWindow = new StartWindow();
+            startWindow.setVisible(true);
+        }
         if (game.getMap().getFoodCount() == 0) {
             game.getMap().addRandomFood();
         }
